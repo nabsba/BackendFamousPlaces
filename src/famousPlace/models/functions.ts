@@ -2,6 +2,7 @@ import { ERROR_MESSAGES, logErrorAsyncMessage, logMessage } from '../../common';
 import prismaClientDB from '../../lib/prismadb';
 import { PlaceBody, PlacesBody, PreSelectionBody } from '../type';
 import { ROW_PER_PAGE } from '../services/constant';
+import { listFilesInFolder } from '../../firebase';
 
 const handleAddPlaceToPreference = async (placeId: string, userId: string) => {
   try {
@@ -227,30 +228,25 @@ const returnQueryFilterPlace = (args: PlacesBody, fromRow: number) => {
       });
   }
 };
-const   handleGetPlaces = async (args: PlacesBody) => {
+const handleGetPlaces = async (args: PlacesBody) => {
   try {
-  
     const totalRows = await returnTotalRow(args);
     const fromRow =
       parseInt(args.page) > 1 ? (parseInt(args.page) - 1) * ROW_PER_PAGE : parseInt(args.page) == 1 ? 5 : 0;
     const result = await returnQueryFilterPlace(args, fromRow);
-
     const finalResult = [];
 
-    if(result && result.length > 0) {
-
-    for (let i = 0; i < result.length; i++) {
-      const isPlaceOnUser = result[i]._count.users > 0;
-      finalResult.push({
-        ...result[i],
-        placeDetail: result[i].placeDetail[0],
-        images: [],
-        // images:  await listFilesInFolder(`${result[i].address.city.name.toLocaleLowerCase()}/${result[i].image}`),
-        isFavoritePlace: isPlaceOnUser,
-      });
+    if (result && result.length > 0) {
+      for (let i = 0; i < result.length; i++) {
+        const isPlaceOnUser = result[i]._count.users > 0;
+        finalResult.push({
+          ...result[i],
+          placeDetail: result[i].placeDetail[0],
+          images: await listFilesInFolder(`${result[i].address.city.name.toLocaleLowerCase()}/${result[i].image}`),
+          isFavoritePlace: isPlaceOnUser,
+        });
+      }
     }
-
-  }
     const data = {
       places: finalResult,
       page: args.page,
@@ -389,4 +385,11 @@ const handleGetPreSelectionName = async (args: PreSelectionBody) => {
   }
 };
 
-export { handleAddPlaceToPreference, handleGetPlaces, handleGetPreSelectionName, handleGetPlace, returnTotalRow, returnQueryFilterPlace };
+export {
+  handleAddPlaceToPreference,
+  handleGetPlaces,
+  handleGetPreSelectionName,
+  handleGetPlace,
+  returnTotalRow,
+  returnQueryFilterPlace,
+};

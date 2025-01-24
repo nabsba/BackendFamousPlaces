@@ -4,7 +4,6 @@ import express, { Request, Response } from 'express';
 import { ERROR_MESSAGES_KEYS, logErrorAsyncMessage, logMessage, STATUS_SERVER } from './common';
 import { resolvers, typeDefs } from './graphql';
 
-
 import dotenv from 'dotenv';
 import { handleVerifyToken } from './jwt';
 

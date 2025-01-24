@@ -29,6 +29,11 @@ export type Place = $Result.DefaultSelection<Prisma.$PlacePayload>
  */
 export type PlaceOnUser = $Result.DefaultSelection<Prisma.$PlaceOnUserPayload>
 /**
+ * Model PlaceDetail
+ * 
+ */
+export type PlaceDetail = $Result.DefaultSelection<Prisma.$PlaceDetailPayload>
+/**
  * Model Session
  * 
  */
@@ -63,11 +68,6 @@ export type Address = $Result.DefaultSelection<Prisma.$AddressPayload>
  * 
  */
 export type City = $Result.DefaultSelection<Prisma.$CityPayload>
-/**
- * Model PlaceDetail
- * 
- */
-export type PlaceDetail = $Result.DefaultSelection<Prisma.$PlaceDetailPayload>
 /**
  * Model Language
  * 
@@ -233,6 +233,16 @@ export class PrismaClient<
   get placeOnUser(): Prisma.PlaceOnUserDelegate<ExtArgs>;
 
   /**
+   * `prisma.placeDetail`: Exposes CRUD operations for the **PlaceDetail** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlaceDetails
+    * const placeDetails = await prisma.placeDetail.findMany()
+    * ```
+    */
+  get placeDetail(): Prisma.PlaceDetailDelegate<ExtArgs>;
+
+  /**
    * `prisma.session`: Exposes CRUD operations for the **Session** model.
     * Example usage:
     * ```ts
@@ -301,16 +311,6 @@ export class PrismaClient<
     * ```
     */
   get city(): Prisma.CityDelegate<ExtArgs>;
-
-  /**
-   * `prisma.placeDetail`: Exposes CRUD operations for the **PlaceDetail** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more PlaceDetails
-    * const placeDetails = await prisma.placeDetail.findMany()
-    * ```
-    */
-  get placeDetail(): Prisma.PlaceDetailDelegate<ExtArgs>;
 
   /**
    * `prisma.language`: Exposes CRUD operations for the **Language** model.
@@ -568,7 +568,7 @@ export namespace Prisma {
   ? False
   : T extends Uint8Array
   ? False
-  : T extends bigint
+  : T extends BigInt
   ? False
   : T extends object
   ? True
@@ -775,6 +775,7 @@ export namespace Prisma {
     User: 'User',
     Place: 'Place',
     PlaceOnUser: 'PlaceOnUser',
+    PlaceDetail: 'PlaceDetail',
     Session: 'Session',
     Account: 'Account',
     UserAuthentification: 'UserAuthentification',
@@ -782,7 +783,6 @@ export namespace Prisma {
     Country: 'Country',
     Address: 'Address',
     City: 'City',
-    PlaceDetail: 'PlaceDetail',
     Language: 'Language',
     Booking: 'Booking'
   };
@@ -800,7 +800,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "place" | "placeOnUser" | "session" | "account" | "userAuthentification" | "role" | "country" | "address" | "city" | "placeDetail" | "language" | "booking"
+      modelProps: "user" | "place" | "placeOnUser" | "placeDetail" | "session" | "account" | "userAuthentification" | "role" | "country" | "address" | "city" | "language" | "booking"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1011,6 +1011,76 @@ export namespace Prisma {
           count: {
             args: Prisma.PlaceOnUserCountArgs<ExtArgs>
             result: $Utils.Optional<PlaceOnUserCountAggregateOutputType> | number
+          }
+        }
+      }
+      PlaceDetail: {
+        payload: Prisma.$PlaceDetailPayload<ExtArgs>
+        fields: Prisma.PlaceDetailFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlaceDetailFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlaceDetailFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>
+          }
+          findFirst: {
+            args: Prisma.PlaceDetailFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlaceDetailFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>
+          }
+          findMany: {
+            args: Prisma.PlaceDetailFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>[]
+          }
+          create: {
+            args: Prisma.PlaceDetailCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>
+          }
+          createMany: {
+            args: Prisma.PlaceDetailCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlaceDetailCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>[]
+          }
+          delete: {
+            args: Prisma.PlaceDetailDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>
+          }
+          update: {
+            args: Prisma.PlaceDetailUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlaceDetailDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlaceDetailUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PlaceDetailUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>
+          }
+          aggregate: {
+            args: Prisma.PlaceDetailAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlaceDetail>
+          }
+          groupBy: {
+            args: Prisma.PlaceDetailGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlaceDetailGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlaceDetailCountArgs<ExtArgs>
+            result: $Utils.Optional<PlaceDetailCountAggregateOutputType> | number
           }
         }
       }
@@ -1501,76 +1571,6 @@ export namespace Prisma {
           count: {
             args: Prisma.CityCountArgs<ExtArgs>
             result: $Utils.Optional<CityCountAggregateOutputType> | number
-          }
-        }
-      }
-      PlaceDetail: {
-        payload: Prisma.$PlaceDetailPayload<ExtArgs>
-        fields: Prisma.PlaceDetailFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.PlaceDetailFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.PlaceDetailFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>
-          }
-          findFirst: {
-            args: Prisma.PlaceDetailFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.PlaceDetailFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>
-          }
-          findMany: {
-            args: Prisma.PlaceDetailFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>[]
-          }
-          create: {
-            args: Prisma.PlaceDetailCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>
-          }
-          createMany: {
-            args: Prisma.PlaceDetailCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.PlaceDetailCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>[]
-          }
-          delete: {
-            args: Prisma.PlaceDetailDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>
-          }
-          update: {
-            args: Prisma.PlaceDetailUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>
-          }
-          deleteMany: {
-            args: Prisma.PlaceDetailDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.PlaceDetailUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.PlaceDetailUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PlaceDetailPayload>
-          }
-          aggregate: {
-            args: Prisma.PlaceDetailAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePlaceDetail>
-          }
-          groupBy: {
-            args: Prisma.PlaceDetailGroupByArgs<ExtArgs>
-            result: $Utils.Optional<PlaceDetailGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.PlaceDetailCountArgs<ExtArgs>
-            result: $Utils.Optional<PlaceDetailCountAggregateOutputType> | number
           }
         }
       }
@@ -3189,6 +3189,8 @@ export namespace Prisma {
     createdAt: Date | null
     addressId: string | null
     image: string | null
+    price: string | null
+    hoursTravel: string | null
   }
 
   export type PlaceMaxAggregateOutputType = {
@@ -3197,6 +3199,8 @@ export namespace Prisma {
     createdAt: Date | null
     addressId: string | null
     image: string | null
+    price: string | null
+    hoursTravel: string | null
   }
 
   export type PlaceCountAggregateOutputType = {
@@ -3205,6 +3209,8 @@ export namespace Prisma {
     createdAt: number
     addressId: number
     image: number
+    price: number
+    hoursTravel: number
     _all: number
   }
 
@@ -3223,6 +3229,8 @@ export namespace Prisma {
     createdAt?: true
     addressId?: true
     image?: true
+    price?: true
+    hoursTravel?: true
   }
 
   export type PlaceMaxAggregateInputType = {
@@ -3231,6 +3239,8 @@ export namespace Prisma {
     createdAt?: true
     addressId?: true
     image?: true
+    price?: true
+    hoursTravel?: true
   }
 
   export type PlaceCountAggregateInputType = {
@@ -3239,6 +3249,8 @@ export namespace Prisma {
     createdAt?: true
     addressId?: true
     image?: true
+    price?: true
+    hoursTravel?: true
     _all?: true
   }
 
@@ -3334,6 +3346,8 @@ export namespace Prisma {
     createdAt: Date
     addressId: string
     image: string | null
+    price: string | null
+    hoursTravel: string | null
     _count: PlaceCountAggregateOutputType | null
     _avg: PlaceAvgAggregateOutputType | null
     _sum: PlaceSumAggregateOutputType | null
@@ -3361,6 +3375,8 @@ export namespace Prisma {
     createdAt?: boolean
     addressId?: boolean
     image?: boolean
+    price?: boolean
+    hoursTravel?: boolean
     address?: boolean | AddressDefaultArgs<ExtArgs>
     placeDetail?: boolean | Place$placeDetailArgs<ExtArgs>
     bookings?: boolean | Place$bookingsArgs<ExtArgs>
@@ -3374,6 +3390,8 @@ export namespace Prisma {
     createdAt?: boolean
     addressId?: boolean
     image?: boolean
+    price?: boolean
+    hoursTravel?: boolean
     address?: boolean | AddressDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["place"]>
 
@@ -3383,6 +3401,8 @@ export namespace Prisma {
     createdAt?: boolean
     addressId?: boolean
     image?: boolean
+    price?: boolean
+    hoursTravel?: boolean
   }
 
   export type PlaceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3410,6 +3430,8 @@ export namespace Prisma {
       createdAt: Date
       addressId: string
       image: string | null
+      price: string | null
+      hoursTravel: string | null
     }, ExtArgs["result"]["place"]>
     composites: {}
   }
@@ -3812,6 +3834,8 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Place", 'DateTime'>
     readonly addressId: FieldRef<"Place", 'String'>
     readonly image: FieldRef<"Place", 'String'>
+    readonly price: FieldRef<"Place", 'String'>
+    readonly hoursTravel: FieldRef<"Place", 'String'>
   }
     
 
@@ -5104,6 +5128,985 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PlaceOnUserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PlaceDetail
+   */
+
+  export type AggregatePlaceDetail = {
+    _count: PlaceDetailCountAggregateOutputType | null
+    _avg: PlaceDetailAvgAggregateOutputType | null
+    _sum: PlaceDetailSumAggregateOutputType | null
+    _min: PlaceDetailMinAggregateOutputType | null
+    _max: PlaceDetailMaxAggregateOutputType | null
+  }
+
+  export type PlaceDetailAvgAggregateOutputType = {
+    languageId: number | null
+  }
+
+  export type PlaceDetailSumAggregateOutputType = {
+    languageId: number | null
+  }
+
+  export type PlaceDetailMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+    placeId: string | null
+    languageId: number | null
+  }
+
+  export type PlaceDetailMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+    placeId: string | null
+    languageId: number | null
+  }
+
+  export type PlaceDetailCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    createdAt: number
+    placeId: number
+    languageId: number
+    _all: number
+  }
+
+
+  export type PlaceDetailAvgAggregateInputType = {
+    languageId?: true
+  }
+
+  export type PlaceDetailSumAggregateInputType = {
+    languageId?: true
+  }
+
+  export type PlaceDetailMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    placeId?: true
+    languageId?: true
+  }
+
+  export type PlaceDetailMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    placeId?: true
+    languageId?: true
+  }
+
+  export type PlaceDetailCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    placeId?: true
+    languageId?: true
+    _all?: true
+  }
+
+  export type PlaceDetailAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlaceDetail to aggregate.
+     */
+    where?: PlaceDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlaceDetails to fetch.
+     */
+    orderBy?: PlaceDetailOrderByWithRelationInput | PlaceDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlaceDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlaceDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlaceDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlaceDetails
+    **/
+    _count?: true | PlaceDetailCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PlaceDetailAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PlaceDetailSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlaceDetailMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlaceDetailMaxAggregateInputType
+  }
+
+  export type GetPlaceDetailAggregateType<T extends PlaceDetailAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlaceDetail]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlaceDetail[P]>
+      : GetScalarType<T[P], AggregatePlaceDetail[P]>
+  }
+
+
+
+
+  export type PlaceDetailGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlaceDetailWhereInput
+    orderBy?: PlaceDetailOrderByWithAggregationInput | PlaceDetailOrderByWithAggregationInput[]
+    by: PlaceDetailScalarFieldEnum[] | PlaceDetailScalarFieldEnum
+    having?: PlaceDetailScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlaceDetailCountAggregateInputType | true
+    _avg?: PlaceDetailAvgAggregateInputType
+    _sum?: PlaceDetailSumAggregateInputType
+    _min?: PlaceDetailMinAggregateInputType
+    _max?: PlaceDetailMaxAggregateInputType
+  }
+
+  export type PlaceDetailGroupByOutputType = {
+    id: string
+    name: string
+    description: string
+    createdAt: Date
+    placeId: string
+    languageId: number
+    _count: PlaceDetailCountAggregateOutputType | null
+    _avg: PlaceDetailAvgAggregateOutputType | null
+    _sum: PlaceDetailSumAggregateOutputType | null
+    _min: PlaceDetailMinAggregateOutputType | null
+    _max: PlaceDetailMaxAggregateOutputType | null
+  }
+
+  type GetPlaceDetailGroupByPayload<T extends PlaceDetailGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlaceDetailGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlaceDetailGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlaceDetailGroupByOutputType[P]>
+            : GetScalarType<T[P], PlaceDetailGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlaceDetailSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    placeId?: boolean
+    languageId?: boolean
+    place?: boolean | PlaceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["placeDetail"]>
+
+  export type PlaceDetailSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    placeId?: boolean
+    languageId?: boolean
+    place?: boolean | PlaceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["placeDetail"]>
+
+  export type PlaceDetailSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    placeId?: boolean
+    languageId?: boolean
+  }
+
+  export type PlaceDetailInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    place?: boolean | PlaceDefaultArgs<ExtArgs>
+  }
+  export type PlaceDetailIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    place?: boolean | PlaceDefaultArgs<ExtArgs>
+  }
+
+  export type $PlaceDetailPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PlaceDetail"
+    objects: {
+      place: Prisma.$PlacePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string
+      createdAt: Date
+      placeId: string
+      languageId: number
+    }, ExtArgs["result"]["placeDetail"]>
+    composites: {}
+  }
+
+  type PlaceDetailGetPayload<S extends boolean | null | undefined | PlaceDetailDefaultArgs> = $Result.GetResult<Prisma.$PlaceDetailPayload, S>
+
+  type PlaceDetailCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PlaceDetailFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PlaceDetailCountAggregateInputType | true
+    }
+
+  export interface PlaceDetailDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlaceDetail'], meta: { name: 'PlaceDetail' } }
+    /**
+     * Find zero or one PlaceDetail that matches the filter.
+     * @param {PlaceDetailFindUniqueArgs} args - Arguments to find a PlaceDetail
+     * @example
+     * // Get one PlaceDetail
+     * const placeDetail = await prisma.placeDetail.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlaceDetailFindUniqueArgs>(args: SelectSubset<T, PlaceDetailFindUniqueArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PlaceDetail that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PlaceDetailFindUniqueOrThrowArgs} args - Arguments to find a PlaceDetail
+     * @example
+     * // Get one PlaceDetail
+     * const placeDetail = await prisma.placeDetail.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlaceDetailFindUniqueOrThrowArgs>(args: SelectSubset<T, PlaceDetailFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PlaceDetail that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaceDetailFindFirstArgs} args - Arguments to find a PlaceDetail
+     * @example
+     * // Get one PlaceDetail
+     * const placeDetail = await prisma.placeDetail.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlaceDetailFindFirstArgs>(args?: SelectSubset<T, PlaceDetailFindFirstArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PlaceDetail that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaceDetailFindFirstOrThrowArgs} args - Arguments to find a PlaceDetail
+     * @example
+     * // Get one PlaceDetail
+     * const placeDetail = await prisma.placeDetail.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlaceDetailFindFirstOrThrowArgs>(args?: SelectSubset<T, PlaceDetailFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PlaceDetails that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaceDetailFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlaceDetails
+     * const placeDetails = await prisma.placeDetail.findMany()
+     * 
+     * // Get first 10 PlaceDetails
+     * const placeDetails = await prisma.placeDetail.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const placeDetailWithIdOnly = await prisma.placeDetail.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlaceDetailFindManyArgs>(args?: SelectSubset<T, PlaceDetailFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PlaceDetail.
+     * @param {PlaceDetailCreateArgs} args - Arguments to create a PlaceDetail.
+     * @example
+     * // Create one PlaceDetail
+     * const PlaceDetail = await prisma.placeDetail.create({
+     *   data: {
+     *     // ... data to create a PlaceDetail
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlaceDetailCreateArgs>(args: SelectSubset<T, PlaceDetailCreateArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PlaceDetails.
+     * @param {PlaceDetailCreateManyArgs} args - Arguments to create many PlaceDetails.
+     * @example
+     * // Create many PlaceDetails
+     * const placeDetail = await prisma.placeDetail.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlaceDetailCreateManyArgs>(args?: SelectSubset<T, PlaceDetailCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PlaceDetails and returns the data saved in the database.
+     * @param {PlaceDetailCreateManyAndReturnArgs} args - Arguments to create many PlaceDetails.
+     * @example
+     * // Create many PlaceDetails
+     * const placeDetail = await prisma.placeDetail.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PlaceDetails and only return the `id`
+     * const placeDetailWithIdOnly = await prisma.placeDetail.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlaceDetailCreateManyAndReturnArgs>(args?: SelectSubset<T, PlaceDetailCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PlaceDetail.
+     * @param {PlaceDetailDeleteArgs} args - Arguments to delete one PlaceDetail.
+     * @example
+     * // Delete one PlaceDetail
+     * const PlaceDetail = await prisma.placeDetail.delete({
+     *   where: {
+     *     // ... filter to delete one PlaceDetail
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlaceDetailDeleteArgs>(args: SelectSubset<T, PlaceDetailDeleteArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PlaceDetail.
+     * @param {PlaceDetailUpdateArgs} args - Arguments to update one PlaceDetail.
+     * @example
+     * // Update one PlaceDetail
+     * const placeDetail = await prisma.placeDetail.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlaceDetailUpdateArgs>(args: SelectSubset<T, PlaceDetailUpdateArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PlaceDetails.
+     * @param {PlaceDetailDeleteManyArgs} args - Arguments to filter PlaceDetails to delete.
+     * @example
+     * // Delete a few PlaceDetails
+     * const { count } = await prisma.placeDetail.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlaceDetailDeleteManyArgs>(args?: SelectSubset<T, PlaceDetailDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlaceDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaceDetailUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlaceDetails
+     * const placeDetail = await prisma.placeDetail.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlaceDetailUpdateManyArgs>(args: SelectSubset<T, PlaceDetailUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PlaceDetail.
+     * @param {PlaceDetailUpsertArgs} args - Arguments to update or create a PlaceDetail.
+     * @example
+     * // Update or create a PlaceDetail
+     * const placeDetail = await prisma.placeDetail.upsert({
+     *   create: {
+     *     // ... data to create a PlaceDetail
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlaceDetail we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlaceDetailUpsertArgs>(args: SelectSubset<T, PlaceDetailUpsertArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PlaceDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaceDetailCountArgs} args - Arguments to filter PlaceDetails to count.
+     * @example
+     * // Count the number of PlaceDetails
+     * const count = await prisma.placeDetail.count({
+     *   where: {
+     *     // ... the filter for the PlaceDetails we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlaceDetailCountArgs>(
+      args?: Subset<T, PlaceDetailCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlaceDetailCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlaceDetail.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaceDetailAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlaceDetailAggregateArgs>(args: Subset<T, PlaceDetailAggregateArgs>): Prisma.PrismaPromise<GetPlaceDetailAggregateType<T>>
+
+    /**
+     * Group by PlaceDetail.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaceDetailGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlaceDetailGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlaceDetailGroupByArgs['orderBy'] }
+        : { orderBy?: PlaceDetailGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlaceDetailGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlaceDetailGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PlaceDetail model
+   */
+  readonly fields: PlaceDetailFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlaceDetail.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlaceDetailClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    place<T extends PlaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlaceDefaultArgs<ExtArgs>>): Prisma__PlaceClient<$Result.GetResult<Prisma.$PlacePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PlaceDetail model
+   */ 
+  interface PlaceDetailFieldRefs {
+    readonly id: FieldRef<"PlaceDetail", 'String'>
+    readonly name: FieldRef<"PlaceDetail", 'String'>
+    readonly description: FieldRef<"PlaceDetail", 'String'>
+    readonly createdAt: FieldRef<"PlaceDetail", 'DateTime'>
+    readonly placeId: FieldRef<"PlaceDetail", 'String'>
+    readonly languageId: FieldRef<"PlaceDetail", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PlaceDetail findUnique
+   */
+  export type PlaceDetailFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaceDetail
+     */
+    select?: PlaceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaceDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which PlaceDetail to fetch.
+     */
+    where: PlaceDetailWhereUniqueInput
+  }
+
+  /**
+   * PlaceDetail findUniqueOrThrow
+   */
+  export type PlaceDetailFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaceDetail
+     */
+    select?: PlaceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaceDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which PlaceDetail to fetch.
+     */
+    where: PlaceDetailWhereUniqueInput
+  }
+
+  /**
+   * PlaceDetail findFirst
+   */
+  export type PlaceDetailFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaceDetail
+     */
+    select?: PlaceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaceDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which PlaceDetail to fetch.
+     */
+    where?: PlaceDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlaceDetails to fetch.
+     */
+    orderBy?: PlaceDetailOrderByWithRelationInput | PlaceDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlaceDetails.
+     */
+    cursor?: PlaceDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlaceDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlaceDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlaceDetails.
+     */
+    distinct?: PlaceDetailScalarFieldEnum | PlaceDetailScalarFieldEnum[]
+  }
+
+  /**
+   * PlaceDetail findFirstOrThrow
+   */
+  export type PlaceDetailFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaceDetail
+     */
+    select?: PlaceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaceDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which PlaceDetail to fetch.
+     */
+    where?: PlaceDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlaceDetails to fetch.
+     */
+    orderBy?: PlaceDetailOrderByWithRelationInput | PlaceDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlaceDetails.
+     */
+    cursor?: PlaceDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlaceDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlaceDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlaceDetails.
+     */
+    distinct?: PlaceDetailScalarFieldEnum | PlaceDetailScalarFieldEnum[]
+  }
+
+  /**
+   * PlaceDetail findMany
+   */
+  export type PlaceDetailFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaceDetail
+     */
+    select?: PlaceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaceDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which PlaceDetails to fetch.
+     */
+    where?: PlaceDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlaceDetails to fetch.
+     */
+    orderBy?: PlaceDetailOrderByWithRelationInput | PlaceDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlaceDetails.
+     */
+    cursor?: PlaceDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlaceDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlaceDetails.
+     */
+    skip?: number
+    distinct?: PlaceDetailScalarFieldEnum | PlaceDetailScalarFieldEnum[]
+  }
+
+  /**
+   * PlaceDetail create
+   */
+  export type PlaceDetailCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaceDetail
+     */
+    select?: PlaceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaceDetailInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PlaceDetail.
+     */
+    data: XOR<PlaceDetailCreateInput, PlaceDetailUncheckedCreateInput>
+  }
+
+  /**
+   * PlaceDetail createMany
+   */
+  export type PlaceDetailCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PlaceDetails.
+     */
+    data: PlaceDetailCreateManyInput | PlaceDetailCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PlaceDetail createManyAndReturn
+   */
+  export type PlaceDetailCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaceDetail
+     */
+    select?: PlaceDetailSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PlaceDetails.
+     */
+    data: PlaceDetailCreateManyInput | PlaceDetailCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaceDetailIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlaceDetail update
+   */
+  export type PlaceDetailUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaceDetail
+     */
+    select?: PlaceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaceDetailInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PlaceDetail.
+     */
+    data: XOR<PlaceDetailUpdateInput, PlaceDetailUncheckedUpdateInput>
+    /**
+     * Choose, which PlaceDetail to update.
+     */
+    where: PlaceDetailWhereUniqueInput
+  }
+
+  /**
+   * PlaceDetail updateMany
+   */
+  export type PlaceDetailUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PlaceDetails.
+     */
+    data: XOR<PlaceDetailUpdateManyMutationInput, PlaceDetailUncheckedUpdateManyInput>
+    /**
+     * Filter which PlaceDetails to update
+     */
+    where?: PlaceDetailWhereInput
+  }
+
+  /**
+   * PlaceDetail upsert
+   */
+  export type PlaceDetailUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaceDetail
+     */
+    select?: PlaceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaceDetailInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PlaceDetail to update in case it exists.
+     */
+    where: PlaceDetailWhereUniqueInput
+    /**
+     * In case the PlaceDetail found by the `where` argument doesn't exist, create a new PlaceDetail with this data.
+     */
+    create: XOR<PlaceDetailCreateInput, PlaceDetailUncheckedCreateInput>
+    /**
+     * In case the PlaceDetail was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlaceDetailUpdateInput, PlaceDetailUncheckedUpdateInput>
+  }
+
+  /**
+   * PlaceDetail delete
+   */
+  export type PlaceDetailDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaceDetail
+     */
+    select?: PlaceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaceDetailInclude<ExtArgs> | null
+    /**
+     * Filter which PlaceDetail to delete.
+     */
+    where: PlaceDetailWhereUniqueInput
+  }
+
+  /**
+   * PlaceDetail deleteMany
+   */
+  export type PlaceDetailDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlaceDetails to delete
+     */
+    where?: PlaceDetailWhereInput
+  }
+
+  /**
+   * PlaceDetail without action
+   */
+  export type PlaceDetailDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaceDetail
+     */
+    select?: PlaceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaceDetailInclude<ExtArgs> | null
   }
 
 
@@ -11964,985 +12967,6 @@ export namespace Prisma {
 
 
   /**
-   * Model PlaceDetail
-   */
-
-  export type AggregatePlaceDetail = {
-    _count: PlaceDetailCountAggregateOutputType | null
-    _avg: PlaceDetailAvgAggregateOutputType | null
-    _sum: PlaceDetailSumAggregateOutputType | null
-    _min: PlaceDetailMinAggregateOutputType | null
-    _max: PlaceDetailMaxAggregateOutputType | null
-  }
-
-  export type PlaceDetailAvgAggregateOutputType = {
-    languageId: number | null
-  }
-
-  export type PlaceDetailSumAggregateOutputType = {
-    languageId: number | null
-  }
-
-  export type PlaceDetailMinAggregateOutputType = {
-    id: string | null
-    name: string | null
-    description: string | null
-    createdAt: Date | null
-    placeId: string | null
-    languageId: number | null
-  }
-
-  export type PlaceDetailMaxAggregateOutputType = {
-    id: string | null
-    name: string | null
-    description: string | null
-    createdAt: Date | null
-    placeId: string | null
-    languageId: number | null
-  }
-
-  export type PlaceDetailCountAggregateOutputType = {
-    id: number
-    name: number
-    description: number
-    createdAt: number
-    placeId: number
-    languageId: number
-    _all: number
-  }
-
-
-  export type PlaceDetailAvgAggregateInputType = {
-    languageId?: true
-  }
-
-  export type PlaceDetailSumAggregateInputType = {
-    languageId?: true
-  }
-
-  export type PlaceDetailMinAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    createdAt?: true
-    placeId?: true
-    languageId?: true
-  }
-
-  export type PlaceDetailMaxAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    createdAt?: true
-    placeId?: true
-    languageId?: true
-  }
-
-  export type PlaceDetailCountAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    createdAt?: true
-    placeId?: true
-    languageId?: true
-    _all?: true
-  }
-
-  export type PlaceDetailAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which PlaceDetail to aggregate.
-     */
-    where?: PlaceDetailWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of PlaceDetails to fetch.
-     */
-    orderBy?: PlaceDetailOrderByWithRelationInput | PlaceDetailOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: PlaceDetailWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` PlaceDetails from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` PlaceDetails.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned PlaceDetails
-    **/
-    _count?: true | PlaceDetailCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: PlaceDetailAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: PlaceDetailSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: PlaceDetailMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: PlaceDetailMaxAggregateInputType
-  }
-
-  export type GetPlaceDetailAggregateType<T extends PlaceDetailAggregateArgs> = {
-        [P in keyof T & keyof AggregatePlaceDetail]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregatePlaceDetail[P]>
-      : GetScalarType<T[P], AggregatePlaceDetail[P]>
-  }
-
-
-
-
-  export type PlaceDetailGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PlaceDetailWhereInput
-    orderBy?: PlaceDetailOrderByWithAggregationInput | PlaceDetailOrderByWithAggregationInput[]
-    by: PlaceDetailScalarFieldEnum[] | PlaceDetailScalarFieldEnum
-    having?: PlaceDetailScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: PlaceDetailCountAggregateInputType | true
-    _avg?: PlaceDetailAvgAggregateInputType
-    _sum?: PlaceDetailSumAggregateInputType
-    _min?: PlaceDetailMinAggregateInputType
-    _max?: PlaceDetailMaxAggregateInputType
-  }
-
-  export type PlaceDetailGroupByOutputType = {
-    id: string
-    name: string
-    description: string
-    createdAt: Date
-    placeId: string
-    languageId: number
-    _count: PlaceDetailCountAggregateOutputType | null
-    _avg: PlaceDetailAvgAggregateOutputType | null
-    _sum: PlaceDetailSumAggregateOutputType | null
-    _min: PlaceDetailMinAggregateOutputType | null
-    _max: PlaceDetailMaxAggregateOutputType | null
-  }
-
-  type GetPlaceDetailGroupByPayload<T extends PlaceDetailGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<PlaceDetailGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof PlaceDetailGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], PlaceDetailGroupByOutputType[P]>
-            : GetScalarType<T[P], PlaceDetailGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type PlaceDetailSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    createdAt?: boolean
-    placeId?: boolean
-    languageId?: boolean
-    place?: boolean | PlaceDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["placeDetail"]>
-
-  export type PlaceDetailSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    createdAt?: boolean
-    placeId?: boolean
-    languageId?: boolean
-    place?: boolean | PlaceDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["placeDetail"]>
-
-  export type PlaceDetailSelectScalar = {
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    createdAt?: boolean
-    placeId?: boolean
-    languageId?: boolean
-  }
-
-  export type PlaceDetailInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    place?: boolean | PlaceDefaultArgs<ExtArgs>
-  }
-  export type PlaceDetailIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    place?: boolean | PlaceDefaultArgs<ExtArgs>
-  }
-
-  export type $PlaceDetailPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "PlaceDetail"
-    objects: {
-      place: Prisma.$PlacePayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      name: string
-      description: string
-      createdAt: Date
-      placeId: string
-      languageId: number
-    }, ExtArgs["result"]["placeDetail"]>
-    composites: {}
-  }
-
-  type PlaceDetailGetPayload<S extends boolean | null | undefined | PlaceDetailDefaultArgs> = $Result.GetResult<Prisma.$PlaceDetailPayload, S>
-
-  type PlaceDetailCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<PlaceDetailFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: PlaceDetailCountAggregateInputType | true
-    }
-
-  export interface PlaceDetailDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlaceDetail'], meta: { name: 'PlaceDetail' } }
-    /**
-     * Find zero or one PlaceDetail that matches the filter.
-     * @param {PlaceDetailFindUniqueArgs} args - Arguments to find a PlaceDetail
-     * @example
-     * // Get one PlaceDetail
-     * const placeDetail = await prisma.placeDetail.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends PlaceDetailFindUniqueArgs>(args: SelectSubset<T, PlaceDetailFindUniqueArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
-
-    /**
-     * Find one PlaceDetail that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
-     * @param {PlaceDetailFindUniqueOrThrowArgs} args - Arguments to find a PlaceDetail
-     * @example
-     * // Get one PlaceDetail
-     * const placeDetail = await prisma.placeDetail.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends PlaceDetailFindUniqueOrThrowArgs>(args: SelectSubset<T, PlaceDetailFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
-
-    /**
-     * Find the first PlaceDetail that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PlaceDetailFindFirstArgs} args - Arguments to find a PlaceDetail
-     * @example
-     * // Get one PlaceDetail
-     * const placeDetail = await prisma.placeDetail.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends PlaceDetailFindFirstArgs>(args?: SelectSubset<T, PlaceDetailFindFirstArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
-
-    /**
-     * Find the first PlaceDetail that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PlaceDetailFindFirstOrThrowArgs} args - Arguments to find a PlaceDetail
-     * @example
-     * // Get one PlaceDetail
-     * const placeDetail = await prisma.placeDetail.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends PlaceDetailFindFirstOrThrowArgs>(args?: SelectSubset<T, PlaceDetailFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
-
-    /**
-     * Find zero or more PlaceDetails that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PlaceDetailFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all PlaceDetails
-     * const placeDetails = await prisma.placeDetail.findMany()
-     * 
-     * // Get first 10 PlaceDetails
-     * const placeDetails = await prisma.placeDetail.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const placeDetailWithIdOnly = await prisma.placeDetail.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends PlaceDetailFindManyArgs>(args?: SelectSubset<T, PlaceDetailFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "findMany">>
-
-    /**
-     * Create a PlaceDetail.
-     * @param {PlaceDetailCreateArgs} args - Arguments to create a PlaceDetail.
-     * @example
-     * // Create one PlaceDetail
-     * const PlaceDetail = await prisma.placeDetail.create({
-     *   data: {
-     *     // ... data to create a PlaceDetail
-     *   }
-     * })
-     * 
-     */
-    create<T extends PlaceDetailCreateArgs>(args: SelectSubset<T, PlaceDetailCreateArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "create">, never, ExtArgs>
-
-    /**
-     * Create many PlaceDetails.
-     * @param {PlaceDetailCreateManyArgs} args - Arguments to create many PlaceDetails.
-     * @example
-     * // Create many PlaceDetails
-     * const placeDetail = await prisma.placeDetail.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends PlaceDetailCreateManyArgs>(args?: SelectSubset<T, PlaceDetailCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many PlaceDetails and returns the data saved in the database.
-     * @param {PlaceDetailCreateManyAndReturnArgs} args - Arguments to create many PlaceDetails.
-     * @example
-     * // Create many PlaceDetails
-     * const placeDetail = await prisma.placeDetail.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many PlaceDetails and only return the `id`
-     * const placeDetailWithIdOnly = await prisma.placeDetail.createManyAndReturn({ 
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends PlaceDetailCreateManyAndReturnArgs>(args?: SelectSubset<T, PlaceDetailCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "createManyAndReturn">>
-
-    /**
-     * Delete a PlaceDetail.
-     * @param {PlaceDetailDeleteArgs} args - Arguments to delete one PlaceDetail.
-     * @example
-     * // Delete one PlaceDetail
-     * const PlaceDetail = await prisma.placeDetail.delete({
-     *   where: {
-     *     // ... filter to delete one PlaceDetail
-     *   }
-     * })
-     * 
-     */
-    delete<T extends PlaceDetailDeleteArgs>(args: SelectSubset<T, PlaceDetailDeleteArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "delete">, never, ExtArgs>
-
-    /**
-     * Update one PlaceDetail.
-     * @param {PlaceDetailUpdateArgs} args - Arguments to update one PlaceDetail.
-     * @example
-     * // Update one PlaceDetail
-     * const placeDetail = await prisma.placeDetail.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends PlaceDetailUpdateArgs>(args: SelectSubset<T, PlaceDetailUpdateArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "update">, never, ExtArgs>
-
-    /**
-     * Delete zero or more PlaceDetails.
-     * @param {PlaceDetailDeleteManyArgs} args - Arguments to filter PlaceDetails to delete.
-     * @example
-     * // Delete a few PlaceDetails
-     * const { count } = await prisma.placeDetail.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends PlaceDetailDeleteManyArgs>(args?: SelectSubset<T, PlaceDetailDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more PlaceDetails.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PlaceDetailUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many PlaceDetails
-     * const placeDetail = await prisma.placeDetail.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends PlaceDetailUpdateManyArgs>(args: SelectSubset<T, PlaceDetailUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one PlaceDetail.
-     * @param {PlaceDetailUpsertArgs} args - Arguments to update or create a PlaceDetail.
-     * @example
-     * // Update or create a PlaceDetail
-     * const placeDetail = await prisma.placeDetail.upsert({
-     *   create: {
-     *     // ... data to create a PlaceDetail
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the PlaceDetail we want to update
-     *   }
-     * })
-     */
-    upsert<T extends PlaceDetailUpsertArgs>(args: SelectSubset<T, PlaceDetailUpsertArgs<ExtArgs>>): Prisma__PlaceDetailClient<$Result.GetResult<Prisma.$PlaceDetailPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
-
-
-    /**
-     * Count the number of PlaceDetails.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PlaceDetailCountArgs} args - Arguments to filter PlaceDetails to count.
-     * @example
-     * // Count the number of PlaceDetails
-     * const count = await prisma.placeDetail.count({
-     *   where: {
-     *     // ... the filter for the PlaceDetails we want to count
-     *   }
-     * })
-    **/
-    count<T extends PlaceDetailCountArgs>(
-      args?: Subset<T, PlaceDetailCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], PlaceDetailCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a PlaceDetail.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PlaceDetailAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends PlaceDetailAggregateArgs>(args: Subset<T, PlaceDetailAggregateArgs>): Prisma.PrismaPromise<GetPlaceDetailAggregateType<T>>
-
-    /**
-     * Group by PlaceDetail.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PlaceDetailGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends PlaceDetailGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: PlaceDetailGroupByArgs['orderBy'] }
-        : { orderBy?: PlaceDetailGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, PlaceDetailGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlaceDetailGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the PlaceDetail model
-   */
-  readonly fields: PlaceDetailFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for PlaceDetail.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__PlaceDetailClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    place<T extends PlaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlaceDefaultArgs<ExtArgs>>): Prisma__PlaceClient<$Result.GetResult<Prisma.$PlacePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the PlaceDetail model
-   */ 
-  interface PlaceDetailFieldRefs {
-    readonly id: FieldRef<"PlaceDetail", 'String'>
-    readonly name: FieldRef<"PlaceDetail", 'String'>
-    readonly description: FieldRef<"PlaceDetail", 'String'>
-    readonly createdAt: FieldRef<"PlaceDetail", 'DateTime'>
-    readonly placeId: FieldRef<"PlaceDetail", 'String'>
-    readonly languageId: FieldRef<"PlaceDetail", 'Int'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * PlaceDetail findUnique
-   */
-  export type PlaceDetailFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PlaceDetail
-     */
-    select?: PlaceDetailSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PlaceDetailInclude<ExtArgs> | null
-    /**
-     * Filter, which PlaceDetail to fetch.
-     */
-    where: PlaceDetailWhereUniqueInput
-  }
-
-  /**
-   * PlaceDetail findUniqueOrThrow
-   */
-  export type PlaceDetailFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PlaceDetail
-     */
-    select?: PlaceDetailSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PlaceDetailInclude<ExtArgs> | null
-    /**
-     * Filter, which PlaceDetail to fetch.
-     */
-    where: PlaceDetailWhereUniqueInput
-  }
-
-  /**
-   * PlaceDetail findFirst
-   */
-  export type PlaceDetailFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PlaceDetail
-     */
-    select?: PlaceDetailSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PlaceDetailInclude<ExtArgs> | null
-    /**
-     * Filter, which PlaceDetail to fetch.
-     */
-    where?: PlaceDetailWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of PlaceDetails to fetch.
-     */
-    orderBy?: PlaceDetailOrderByWithRelationInput | PlaceDetailOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for PlaceDetails.
-     */
-    cursor?: PlaceDetailWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` PlaceDetails from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` PlaceDetails.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of PlaceDetails.
-     */
-    distinct?: PlaceDetailScalarFieldEnum | PlaceDetailScalarFieldEnum[]
-  }
-
-  /**
-   * PlaceDetail findFirstOrThrow
-   */
-  export type PlaceDetailFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PlaceDetail
-     */
-    select?: PlaceDetailSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PlaceDetailInclude<ExtArgs> | null
-    /**
-     * Filter, which PlaceDetail to fetch.
-     */
-    where?: PlaceDetailWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of PlaceDetails to fetch.
-     */
-    orderBy?: PlaceDetailOrderByWithRelationInput | PlaceDetailOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for PlaceDetails.
-     */
-    cursor?: PlaceDetailWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` PlaceDetails from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` PlaceDetails.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of PlaceDetails.
-     */
-    distinct?: PlaceDetailScalarFieldEnum | PlaceDetailScalarFieldEnum[]
-  }
-
-  /**
-   * PlaceDetail findMany
-   */
-  export type PlaceDetailFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PlaceDetail
-     */
-    select?: PlaceDetailSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PlaceDetailInclude<ExtArgs> | null
-    /**
-     * Filter, which PlaceDetails to fetch.
-     */
-    where?: PlaceDetailWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of PlaceDetails to fetch.
-     */
-    orderBy?: PlaceDetailOrderByWithRelationInput | PlaceDetailOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing PlaceDetails.
-     */
-    cursor?: PlaceDetailWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` PlaceDetails from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` PlaceDetails.
-     */
-    skip?: number
-    distinct?: PlaceDetailScalarFieldEnum | PlaceDetailScalarFieldEnum[]
-  }
-
-  /**
-   * PlaceDetail create
-   */
-  export type PlaceDetailCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PlaceDetail
-     */
-    select?: PlaceDetailSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PlaceDetailInclude<ExtArgs> | null
-    /**
-     * The data needed to create a PlaceDetail.
-     */
-    data: XOR<PlaceDetailCreateInput, PlaceDetailUncheckedCreateInput>
-  }
-
-  /**
-   * PlaceDetail createMany
-   */
-  export type PlaceDetailCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many PlaceDetails.
-     */
-    data: PlaceDetailCreateManyInput | PlaceDetailCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * PlaceDetail createManyAndReturn
-   */
-  export type PlaceDetailCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PlaceDetail
-     */
-    select?: PlaceDetailSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * The data used to create many PlaceDetails.
-     */
-    data: PlaceDetailCreateManyInput | PlaceDetailCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PlaceDetailIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * PlaceDetail update
-   */
-  export type PlaceDetailUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PlaceDetail
-     */
-    select?: PlaceDetailSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PlaceDetailInclude<ExtArgs> | null
-    /**
-     * The data needed to update a PlaceDetail.
-     */
-    data: XOR<PlaceDetailUpdateInput, PlaceDetailUncheckedUpdateInput>
-    /**
-     * Choose, which PlaceDetail to update.
-     */
-    where: PlaceDetailWhereUniqueInput
-  }
-
-  /**
-   * PlaceDetail updateMany
-   */
-  export type PlaceDetailUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update PlaceDetails.
-     */
-    data: XOR<PlaceDetailUpdateManyMutationInput, PlaceDetailUncheckedUpdateManyInput>
-    /**
-     * Filter which PlaceDetails to update
-     */
-    where?: PlaceDetailWhereInput
-  }
-
-  /**
-   * PlaceDetail upsert
-   */
-  export type PlaceDetailUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PlaceDetail
-     */
-    select?: PlaceDetailSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PlaceDetailInclude<ExtArgs> | null
-    /**
-     * The filter to search for the PlaceDetail to update in case it exists.
-     */
-    where: PlaceDetailWhereUniqueInput
-    /**
-     * In case the PlaceDetail found by the `where` argument doesn't exist, create a new PlaceDetail with this data.
-     */
-    create: XOR<PlaceDetailCreateInput, PlaceDetailUncheckedCreateInput>
-    /**
-     * In case the PlaceDetail was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<PlaceDetailUpdateInput, PlaceDetailUncheckedUpdateInput>
-  }
-
-  /**
-   * PlaceDetail delete
-   */
-  export type PlaceDetailDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PlaceDetail
-     */
-    select?: PlaceDetailSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PlaceDetailInclude<ExtArgs> | null
-    /**
-     * Filter which PlaceDetail to delete.
-     */
-    where: PlaceDetailWhereUniqueInput
-  }
-
-  /**
-   * PlaceDetail deleteMany
-   */
-  export type PlaceDetailDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which PlaceDetails to delete
-     */
-    where?: PlaceDetailWhereInput
-  }
-
-  /**
-   * PlaceDetail without action
-   */
-  export type PlaceDetailDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PlaceDetail
-     */
-    select?: PlaceDetailSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PlaceDetailInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Language
    */
 
@@ -14822,7 +14846,9 @@ export namespace Prisma {
     popularity: 'popularity',
     createdAt: 'createdAt',
     addressId: 'addressId',
-    image: 'image'
+    image: 'image',
+    price: 'price',
+    hoursTravel: 'hoursTravel'
   };
 
   export type PlaceScalarFieldEnum = (typeof PlaceScalarFieldEnum)[keyof typeof PlaceScalarFieldEnum]
@@ -14834,6 +14860,18 @@ export namespace Prisma {
   };
 
   export type PlaceOnUserScalarFieldEnum = (typeof PlaceOnUserScalarFieldEnum)[keyof typeof PlaceOnUserScalarFieldEnum]
+
+
+  export const PlaceDetailScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    createdAt: 'createdAt',
+    placeId: 'placeId',
+    languageId: 'languageId'
+  };
+
+  export type PlaceDetailScalarFieldEnum = (typeof PlaceDetailScalarFieldEnum)[keyof typeof PlaceDetailScalarFieldEnum]
 
 
   export const SessionScalarFieldEnum: {
@@ -14921,18 +14959,6 @@ export namespace Prisma {
   };
 
   export type CityScalarFieldEnum = (typeof CityScalarFieldEnum)[keyof typeof CityScalarFieldEnum]
-
-
-  export const PlaceDetailScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    description: 'description',
-    createdAt: 'createdAt',
-    placeId: 'placeId',
-    languageId: 'languageId'
-  };
-
-  export type PlaceDetailScalarFieldEnum = (typeof PlaceDetailScalarFieldEnum)[keyof typeof PlaceDetailScalarFieldEnum]
 
 
   export const LanguageScalarFieldEnum: {
@@ -15150,6 +15176,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Place"> | Date | string
     addressId?: StringFilter<"Place"> | string
     image?: StringNullableFilter<"Place"> | string | null
+    price?: StringNullableFilter<"Place"> | string | null
+    hoursTravel?: StringNullableFilter<"Place"> | string | null
     address?: XOR<AddressRelationFilter, AddressWhereInput>
     placeDetail?: PlaceDetailListRelationFilter
     bookings?: BookingListRelationFilter
@@ -15162,6 +15190,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     addressId?: SortOrder
     image?: SortOrderInput | SortOrder
+    price?: SortOrderInput | SortOrder
+    hoursTravel?: SortOrderInput | SortOrder
     address?: AddressOrderByWithRelationInput
     placeDetail?: PlaceDetailOrderByRelationAggregateInput
     bookings?: BookingOrderByRelationAggregateInput
@@ -15177,6 +15207,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Place"> | Date | string
     addressId?: StringFilter<"Place"> | string
     image?: StringNullableFilter<"Place"> | string | null
+    price?: StringNullableFilter<"Place"> | string | null
+    hoursTravel?: StringNullableFilter<"Place"> | string | null
     address?: XOR<AddressRelationFilter, AddressWhereInput>
     placeDetail?: PlaceDetailListRelationFilter
     bookings?: BookingListRelationFilter
@@ -15189,6 +15221,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     addressId?: SortOrder
     image?: SortOrderInput | SortOrder
+    price?: SortOrderInput | SortOrder
+    hoursTravel?: SortOrderInput | SortOrder
     _count?: PlaceCountOrderByAggregateInput
     _avg?: PlaceAvgOrderByAggregateInput
     _max?: PlaceMaxOrderByAggregateInput
@@ -15205,6 +15239,8 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Place"> | Date | string
     addressId?: StringWithAggregatesFilter<"Place"> | string
     image?: StringNullableWithAggregatesFilter<"Place"> | string | null
+    price?: StringNullableWithAggregatesFilter<"Place"> | string | null
+    hoursTravel?: StringNullableWithAggregatesFilter<"Place"> | string | null
   }
 
   export type PlaceOnUserWhereInput = {
@@ -15249,6 +15285,68 @@ export namespace Prisma {
     NOT?: PlaceOnUserScalarWhereWithAggregatesInput | PlaceOnUserScalarWhereWithAggregatesInput[]
     userId?: StringWithAggregatesFilter<"PlaceOnUser"> | string
     placeId?: StringWithAggregatesFilter<"PlaceOnUser"> | string
+  }
+
+  export type PlaceDetailWhereInput = {
+    AND?: PlaceDetailWhereInput | PlaceDetailWhereInput[]
+    OR?: PlaceDetailWhereInput[]
+    NOT?: PlaceDetailWhereInput | PlaceDetailWhereInput[]
+    id?: StringFilter<"PlaceDetail"> | string
+    name?: StringFilter<"PlaceDetail"> | string
+    description?: StringFilter<"PlaceDetail"> | string
+    createdAt?: DateTimeFilter<"PlaceDetail"> | Date | string
+    placeId?: StringFilter<"PlaceDetail"> | string
+    languageId?: IntFilter<"PlaceDetail"> | number
+    place?: XOR<PlaceRelationFilter, PlaceWhereInput>
+  }
+
+  export type PlaceDetailOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    placeId?: SortOrder
+    languageId?: SortOrder
+    place?: PlaceOrderByWithRelationInput
+  }
+
+  export type PlaceDetailWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    description?: string
+    AND?: PlaceDetailWhereInput | PlaceDetailWhereInput[]
+    OR?: PlaceDetailWhereInput[]
+    NOT?: PlaceDetailWhereInput | PlaceDetailWhereInput[]
+    name?: StringFilter<"PlaceDetail"> | string
+    createdAt?: DateTimeFilter<"PlaceDetail"> | Date | string
+    placeId?: StringFilter<"PlaceDetail"> | string
+    languageId?: IntFilter<"PlaceDetail"> | number
+    place?: XOR<PlaceRelationFilter, PlaceWhereInput>
+  }, "id" | "description">
+
+  export type PlaceDetailOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    placeId?: SortOrder
+    languageId?: SortOrder
+    _count?: PlaceDetailCountOrderByAggregateInput
+    _avg?: PlaceDetailAvgOrderByAggregateInput
+    _max?: PlaceDetailMaxOrderByAggregateInput
+    _min?: PlaceDetailMinOrderByAggregateInput
+    _sum?: PlaceDetailSumOrderByAggregateInput
+  }
+
+  export type PlaceDetailScalarWhereWithAggregatesInput = {
+    AND?: PlaceDetailScalarWhereWithAggregatesInput | PlaceDetailScalarWhereWithAggregatesInput[]
+    OR?: PlaceDetailScalarWhereWithAggregatesInput[]
+    NOT?: PlaceDetailScalarWhereWithAggregatesInput | PlaceDetailScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PlaceDetail"> | string
+    name?: StringWithAggregatesFilter<"PlaceDetail"> | string
+    description?: StringWithAggregatesFilter<"PlaceDetail"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PlaceDetail"> | Date | string
+    placeId?: StringWithAggregatesFilter<"PlaceDetail"> | string
+    languageId?: IntWithAggregatesFilter<"PlaceDetail"> | number
   }
 
   export type SessionWhereInput = {
@@ -15700,68 +15798,6 @@ export namespace Prisma {
     countryId?: IntWithAggregatesFilter<"City"> | number
   }
 
-  export type PlaceDetailWhereInput = {
-    AND?: PlaceDetailWhereInput | PlaceDetailWhereInput[]
-    OR?: PlaceDetailWhereInput[]
-    NOT?: PlaceDetailWhereInput | PlaceDetailWhereInput[]
-    id?: StringFilter<"PlaceDetail"> | string
-    name?: StringFilter<"PlaceDetail"> | string
-    description?: StringFilter<"PlaceDetail"> | string
-    createdAt?: DateTimeFilter<"PlaceDetail"> | Date | string
-    placeId?: StringFilter<"PlaceDetail"> | string
-    languageId?: IntFilter<"PlaceDetail"> | number
-    place?: XOR<PlaceRelationFilter, PlaceWhereInput>
-  }
-
-  export type PlaceDetailOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    createdAt?: SortOrder
-    placeId?: SortOrder
-    languageId?: SortOrder
-    place?: PlaceOrderByWithRelationInput
-  }
-
-  export type PlaceDetailWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    description?: string
-    AND?: PlaceDetailWhereInput | PlaceDetailWhereInput[]
-    OR?: PlaceDetailWhereInput[]
-    NOT?: PlaceDetailWhereInput | PlaceDetailWhereInput[]
-    name?: StringFilter<"PlaceDetail"> | string
-    createdAt?: DateTimeFilter<"PlaceDetail"> | Date | string
-    placeId?: StringFilter<"PlaceDetail"> | string
-    languageId?: IntFilter<"PlaceDetail"> | number
-    place?: XOR<PlaceRelationFilter, PlaceWhereInput>
-  }, "id" | "description">
-
-  export type PlaceDetailOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    createdAt?: SortOrder
-    placeId?: SortOrder
-    languageId?: SortOrder
-    _count?: PlaceDetailCountOrderByAggregateInput
-    _avg?: PlaceDetailAvgOrderByAggregateInput
-    _max?: PlaceDetailMaxOrderByAggregateInput
-    _min?: PlaceDetailMinOrderByAggregateInput
-    _sum?: PlaceDetailSumOrderByAggregateInput
-  }
-
-  export type PlaceDetailScalarWhereWithAggregatesInput = {
-    AND?: PlaceDetailScalarWhereWithAggregatesInput | PlaceDetailScalarWhereWithAggregatesInput[]
-    OR?: PlaceDetailScalarWhereWithAggregatesInput[]
-    NOT?: PlaceDetailScalarWhereWithAggregatesInput | PlaceDetailScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"PlaceDetail"> | string
-    name?: StringWithAggregatesFilter<"PlaceDetail"> | string
-    description?: StringWithAggregatesFilter<"PlaceDetail"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"PlaceDetail"> | Date | string
-    placeId?: StringWithAggregatesFilter<"PlaceDetail"> | string
-    languageId?: IntWithAggregatesFilter<"PlaceDetail"> | number
-  }
-
   export type LanguageWhereInput = {
     AND?: LanguageWhereInput | LanguageWhereInput[]
     OR?: LanguageWhereInput[]
@@ -15978,6 +16014,8 @@ export namespace Prisma {
     popularity?: number
     createdAt?: Date | string
     image?: string | null
+    price?: string | null
+    hoursTravel?: string | null
     address: AddressCreateNestedOneWithoutPlacesInput
     placeDetail?: PlaceDetailCreateNestedManyWithoutPlaceInput
     bookings?: BookingCreateNestedManyWithoutPlaceInput
@@ -15990,6 +16028,8 @@ export namespace Prisma {
     createdAt?: Date | string
     addressId: string
     image?: string | null
+    price?: string | null
+    hoursTravel?: string | null
     placeDetail?: PlaceDetailUncheckedCreateNestedManyWithoutPlaceInput
     bookings?: BookingUncheckedCreateNestedManyWithoutPlaceInput
     users?: PlaceOnUserUncheckedCreateNestedManyWithoutPlaceInput
@@ -16000,6 +16040,8 @@ export namespace Prisma {
     popularity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursTravel?: NullableStringFieldUpdateOperationsInput | string | null
     address?: AddressUpdateOneRequiredWithoutPlacesNestedInput
     placeDetail?: PlaceDetailUpdateManyWithoutPlaceNestedInput
     bookings?: BookingUpdateManyWithoutPlaceNestedInput
@@ -16012,6 +16054,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     addressId?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursTravel?: NullableStringFieldUpdateOperationsInput | string | null
     placeDetail?: PlaceDetailUncheckedUpdateManyWithoutPlaceNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutPlaceNestedInput
     users?: PlaceOnUserUncheckedUpdateManyWithoutPlaceNestedInput
@@ -16023,6 +16067,8 @@ export namespace Prisma {
     createdAt?: Date | string
     addressId: string
     image?: string | null
+    price?: string | null
+    hoursTravel?: string | null
   }
 
   export type PlaceUpdateManyMutationInput = {
@@ -16030,6 +16076,8 @@ export namespace Prisma {
     popularity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursTravel?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PlaceUncheckedUpdateManyInput = {
@@ -16038,6 +16086,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     addressId?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursTravel?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PlaceOnUserCreateInput = {
@@ -16072,6 +16122,68 @@ export namespace Prisma {
   export type PlaceOnUserUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string
     placeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlaceDetailCreateInput = {
+    id?: string
+    name: string
+    description: string
+    createdAt?: Date | string
+    languageId: number
+    place: PlaceCreateNestedOneWithoutPlaceDetailInput
+  }
+
+  export type PlaceDetailUncheckedCreateInput = {
+    id?: string
+    name: string
+    description: string
+    createdAt?: Date | string
+    placeId: string
+    languageId: number
+  }
+
+  export type PlaceDetailUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    languageId?: IntFieldUpdateOperationsInput | number
+    place?: PlaceUpdateOneRequiredWithoutPlaceDetailNestedInput
+  }
+
+  export type PlaceDetailUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    placeId?: StringFieldUpdateOperationsInput | string
+    languageId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PlaceDetailCreateManyInput = {
+    id?: string
+    name: string
+    description: string
+    createdAt?: Date | string
+    placeId: string
+    languageId: number
+  }
+
+  export type PlaceDetailUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    languageId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PlaceDetailUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    placeId?: StringFieldUpdateOperationsInput | string
+    languageId?: IntFieldUpdateOperationsInput | number
   }
 
   export type SessionCreateInput = {
@@ -16542,68 +16654,6 @@ export namespace Prisma {
     countryId?: IntFieldUpdateOperationsInput | number
   }
 
-  export type PlaceDetailCreateInput = {
-    id?: string
-    name: string
-    description: string
-    createdAt?: Date | string
-    languageId: number
-    place: PlaceCreateNestedOneWithoutPlaceDetailInput
-  }
-
-  export type PlaceDetailUncheckedCreateInput = {
-    id?: string
-    name: string
-    description: string
-    createdAt?: Date | string
-    placeId: string
-    languageId: number
-  }
-
-  export type PlaceDetailUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    languageId?: IntFieldUpdateOperationsInput | number
-    place?: PlaceUpdateOneRequiredWithoutPlaceDetailNestedInput
-  }
-
-  export type PlaceDetailUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    placeId?: StringFieldUpdateOperationsInput | string
-    languageId?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type PlaceDetailCreateManyInput = {
-    id?: string
-    name: string
-    description: string
-    createdAt?: Date | string
-    placeId: string
-    languageId: number
-  }
-
-  export type PlaceDetailUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    languageId?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type PlaceDetailUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    placeId?: StringFieldUpdateOperationsInput | string
-    languageId?: IntFieldUpdateOperationsInput | number
-  }
-
   export type LanguageCreateInput = {
     type: string
     createdAt?: Date | string
@@ -16937,6 +16987,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     addressId?: SortOrder
     image?: SortOrder
+    price?: SortOrder
+    hoursTravel?: SortOrder
   }
 
   export type PlaceAvgOrderByAggregateInput = {
@@ -16949,6 +17001,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     addressId?: SortOrder
     image?: SortOrder
+    price?: SortOrder
+    hoursTravel?: SortOrder
   }
 
   export type PlaceMinOrderByAggregateInput = {
@@ -16957,6 +17011,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     addressId?: SortOrder
     image?: SortOrder
+    price?: SortOrder
+    hoursTravel?: SortOrder
   }
 
   export type PlaceSumOrderByAggregateInput = {
@@ -17007,6 +17063,41 @@ export namespace Prisma {
   export type PlaceOnUserMinOrderByAggregateInput = {
     userId?: SortOrder
     placeId?: SortOrder
+  }
+
+  export type PlaceDetailCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    placeId?: SortOrder
+    languageId?: SortOrder
+  }
+
+  export type PlaceDetailAvgOrderByAggregateInput = {
+    languageId?: SortOrder
+  }
+
+  export type PlaceDetailMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    placeId?: SortOrder
+    languageId?: SortOrder
+  }
+
+  export type PlaceDetailMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    placeId?: SortOrder
+    languageId?: SortOrder
+  }
+
+  export type PlaceDetailSumOrderByAggregateInput = {
+    languageId?: SortOrder
   }
 
   export type SessionCountOrderByAggregateInput = {
@@ -17357,41 +17448,6 @@ export namespace Prisma {
   export type CitySumOrderByAggregateInput = {
     id?: SortOrder
     countryId?: SortOrder
-  }
-
-  export type PlaceDetailCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    createdAt?: SortOrder
-    placeId?: SortOrder
-    languageId?: SortOrder
-  }
-
-  export type PlaceDetailAvgOrderByAggregateInput = {
-    languageId?: SortOrder
-  }
-
-  export type PlaceDetailMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    createdAt?: SortOrder
-    placeId?: SortOrder
-    languageId?: SortOrder
-  }
-
-  export type PlaceDetailMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    createdAt?: SortOrder
-    placeId?: SortOrder
-    languageId?: SortOrder
-  }
-
-  export type PlaceDetailSumOrderByAggregateInput = {
-    languageId?: SortOrder
   }
 
   export type LanguageCountOrderByAggregateInput = {
@@ -17782,6 +17838,20 @@ export namespace Prisma {
     update?: XOR<XOR<PlaceUpdateToOneWithWhereWithoutUsersInput, PlaceUpdateWithoutUsersInput>, PlaceUncheckedUpdateWithoutUsersInput>
   }
 
+  export type PlaceCreateNestedOneWithoutPlaceDetailInput = {
+    create?: XOR<PlaceCreateWithoutPlaceDetailInput, PlaceUncheckedCreateWithoutPlaceDetailInput>
+    connectOrCreate?: PlaceCreateOrConnectWithoutPlaceDetailInput
+    connect?: PlaceWhereUniqueInput
+  }
+
+  export type PlaceUpdateOneRequiredWithoutPlaceDetailNestedInput = {
+    create?: XOR<PlaceCreateWithoutPlaceDetailInput, PlaceUncheckedCreateWithoutPlaceDetailInput>
+    connectOrCreate?: PlaceCreateOrConnectWithoutPlaceDetailInput
+    upsert?: PlaceUpsertWithoutPlaceDetailInput
+    connect?: PlaceWhereUniqueInput
+    update?: XOR<XOR<PlaceUpdateToOneWithWhereWithoutPlaceDetailInput, PlaceUpdateWithoutPlaceDetailInput>, PlaceUncheckedUpdateWithoutPlaceDetailInput>
+  }
+
   export type UserCreateNestedOneWithoutSessionsInput = {
     create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
@@ -18016,20 +18086,6 @@ export namespace Prisma {
     update?: AddressUpdateWithWhereUniqueWithoutCityInput | AddressUpdateWithWhereUniqueWithoutCityInput[]
     updateMany?: AddressUpdateManyWithWhereWithoutCityInput | AddressUpdateManyWithWhereWithoutCityInput[]
     deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
-  }
-
-  export type PlaceCreateNestedOneWithoutPlaceDetailInput = {
-    create?: XOR<PlaceCreateWithoutPlaceDetailInput, PlaceUncheckedCreateWithoutPlaceDetailInput>
-    connectOrCreate?: PlaceCreateOrConnectWithoutPlaceDetailInput
-    connect?: PlaceWhereUniqueInput
-  }
-
-  export type PlaceUpdateOneRequiredWithoutPlaceDetailNestedInput = {
-    create?: XOR<PlaceCreateWithoutPlaceDetailInput, PlaceUncheckedCreateWithoutPlaceDetailInput>
-    connectOrCreate?: PlaceCreateOrConnectWithoutPlaceDetailInput
-    upsert?: PlaceUpsertWithoutPlaceDetailInput
-    connect?: PlaceWhereUniqueInput
-    update?: XOR<XOR<PlaceUpdateToOneWithWhereWithoutPlaceDetailInput, PlaceUpdateWithoutPlaceDetailInput>, PlaceUncheckedUpdateWithoutPlaceDetailInput>
   }
 
   export type PlaceCreateNestedOneWithoutBookingsInput = {
@@ -18703,6 +18759,8 @@ export namespace Prisma {
     popularity?: number
     createdAt?: Date | string
     image?: string | null
+    price?: string | null
+    hoursTravel?: string | null
     address: AddressCreateNestedOneWithoutPlacesInput
     placeDetail?: PlaceDetailCreateNestedManyWithoutPlaceInput
     bookings?: BookingCreateNestedManyWithoutPlaceInput
@@ -18714,6 +18772,8 @@ export namespace Prisma {
     createdAt?: Date | string
     addressId: string
     image?: string | null
+    price?: string | null
+    hoursTravel?: string | null
     placeDetail?: PlaceDetailUncheckedCreateNestedManyWithoutPlaceInput
     bookings?: BookingUncheckedCreateNestedManyWithoutPlaceInput
   }
@@ -18780,6 +18840,8 @@ export namespace Prisma {
     popularity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursTravel?: NullableStringFieldUpdateOperationsInput | string | null
     address?: AddressUpdateOneRequiredWithoutPlacesNestedInput
     placeDetail?: PlaceDetailUpdateManyWithoutPlaceNestedInput
     bookings?: BookingUpdateManyWithoutPlaceNestedInput
@@ -18791,8 +18853,74 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     addressId?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursTravel?: NullableStringFieldUpdateOperationsInput | string | null
     placeDetail?: PlaceDetailUncheckedUpdateManyWithoutPlaceNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutPlaceNestedInput
+  }
+
+  export type PlaceCreateWithoutPlaceDetailInput = {
+    id?: string
+    popularity?: number
+    createdAt?: Date | string
+    image?: string | null
+    price?: string | null
+    hoursTravel?: string | null
+    address: AddressCreateNestedOneWithoutPlacesInput
+    bookings?: BookingCreateNestedManyWithoutPlaceInput
+    users?: PlaceOnUserCreateNestedManyWithoutPlaceInput
+  }
+
+  export type PlaceUncheckedCreateWithoutPlaceDetailInput = {
+    id?: string
+    popularity?: number
+    createdAt?: Date | string
+    addressId: string
+    image?: string | null
+    price?: string | null
+    hoursTravel?: string | null
+    bookings?: BookingUncheckedCreateNestedManyWithoutPlaceInput
+    users?: PlaceOnUserUncheckedCreateNestedManyWithoutPlaceInput
+  }
+
+  export type PlaceCreateOrConnectWithoutPlaceDetailInput = {
+    where: PlaceWhereUniqueInput
+    create: XOR<PlaceCreateWithoutPlaceDetailInput, PlaceUncheckedCreateWithoutPlaceDetailInput>
+  }
+
+  export type PlaceUpsertWithoutPlaceDetailInput = {
+    update: XOR<PlaceUpdateWithoutPlaceDetailInput, PlaceUncheckedUpdateWithoutPlaceDetailInput>
+    create: XOR<PlaceCreateWithoutPlaceDetailInput, PlaceUncheckedCreateWithoutPlaceDetailInput>
+    where?: PlaceWhereInput
+  }
+
+  export type PlaceUpdateToOneWithWhereWithoutPlaceDetailInput = {
+    where?: PlaceWhereInput
+    data: XOR<PlaceUpdateWithoutPlaceDetailInput, PlaceUncheckedUpdateWithoutPlaceDetailInput>
+  }
+
+  export type PlaceUpdateWithoutPlaceDetailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    popularity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursTravel?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: AddressUpdateOneRequiredWithoutPlacesNestedInput
+    bookings?: BookingUpdateManyWithoutPlaceNestedInput
+    users?: PlaceOnUserUpdateManyWithoutPlaceNestedInput
+  }
+
+  export type PlaceUncheckedUpdateWithoutPlaceDetailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    popularity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    addressId?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursTravel?: NullableStringFieldUpdateOperationsInput | string | null
+    bookings?: BookingUncheckedUpdateManyWithoutPlaceNestedInput
+    users?: PlaceOnUserUncheckedUpdateManyWithoutPlaceNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -19073,6 +19201,8 @@ export namespace Prisma {
     popularity?: number
     createdAt?: Date | string
     image?: string | null
+    price?: string | null
+    hoursTravel?: string | null
     placeDetail?: PlaceDetailCreateNestedManyWithoutPlaceInput
     bookings?: BookingCreateNestedManyWithoutPlaceInput
     users?: PlaceOnUserCreateNestedManyWithoutPlaceInput
@@ -19083,6 +19213,8 @@ export namespace Prisma {
     popularity?: number
     createdAt?: Date | string
     image?: string | null
+    price?: string | null
+    hoursTravel?: string | null
     placeDetail?: PlaceDetailUncheckedCreateNestedManyWithoutPlaceInput
     bookings?: BookingUncheckedCreateNestedManyWithoutPlaceInput
     users?: PlaceOnUserUncheckedCreateNestedManyWithoutPlaceInput
@@ -19141,6 +19273,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Place"> | Date | string
     addressId?: StringFilter<"Place"> | string
     image?: StringNullableFilter<"Place"> | string | null
+    price?: StringNullableFilter<"Place"> | string | null
+    hoursTravel?: StringNullableFilter<"Place"> | string | null
   }
 
   export type CityUpsertWithoutAddressInput = {
@@ -19264,67 +19398,13 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Address"> | Date | string
   }
 
-  export type PlaceCreateWithoutPlaceDetailInput = {
-    id?: string
-    popularity?: number
-    createdAt?: Date | string
-    image?: string | null
-    address: AddressCreateNestedOneWithoutPlacesInput
-    bookings?: BookingCreateNestedManyWithoutPlaceInput
-    users?: PlaceOnUserCreateNestedManyWithoutPlaceInput
-  }
-
-  export type PlaceUncheckedCreateWithoutPlaceDetailInput = {
-    id?: string
-    popularity?: number
-    createdAt?: Date | string
-    addressId: string
-    image?: string | null
-    bookings?: BookingUncheckedCreateNestedManyWithoutPlaceInput
-    users?: PlaceOnUserUncheckedCreateNestedManyWithoutPlaceInput
-  }
-
-  export type PlaceCreateOrConnectWithoutPlaceDetailInput = {
-    where: PlaceWhereUniqueInput
-    create: XOR<PlaceCreateWithoutPlaceDetailInput, PlaceUncheckedCreateWithoutPlaceDetailInput>
-  }
-
-  export type PlaceUpsertWithoutPlaceDetailInput = {
-    update: XOR<PlaceUpdateWithoutPlaceDetailInput, PlaceUncheckedUpdateWithoutPlaceDetailInput>
-    create: XOR<PlaceCreateWithoutPlaceDetailInput, PlaceUncheckedCreateWithoutPlaceDetailInput>
-    where?: PlaceWhereInput
-  }
-
-  export type PlaceUpdateToOneWithWhereWithoutPlaceDetailInput = {
-    where?: PlaceWhereInput
-    data: XOR<PlaceUpdateWithoutPlaceDetailInput, PlaceUncheckedUpdateWithoutPlaceDetailInput>
-  }
-
-  export type PlaceUpdateWithoutPlaceDetailInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    popularity?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: AddressUpdateOneRequiredWithoutPlacesNestedInput
-    bookings?: BookingUpdateManyWithoutPlaceNestedInput
-    users?: PlaceOnUserUpdateManyWithoutPlaceNestedInput
-  }
-
-  export type PlaceUncheckedUpdateWithoutPlaceDetailInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    popularity?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    addressId?: StringFieldUpdateOperationsInput | string
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    bookings?: BookingUncheckedUpdateManyWithoutPlaceNestedInput
-    users?: PlaceOnUserUncheckedUpdateManyWithoutPlaceNestedInput
-  }
-
   export type PlaceCreateWithoutBookingsInput = {
     id?: string
     popularity?: number
     createdAt?: Date | string
     image?: string | null
+    price?: string | null
+    hoursTravel?: string | null
     address: AddressCreateNestedOneWithoutPlacesInput
     placeDetail?: PlaceDetailCreateNestedManyWithoutPlaceInput
     users?: PlaceOnUserCreateNestedManyWithoutPlaceInput
@@ -19336,6 +19416,8 @@ export namespace Prisma {
     createdAt?: Date | string
     addressId: string
     image?: string | null
+    price?: string | null
+    hoursTravel?: string | null
     placeDetail?: PlaceDetailUncheckedCreateNestedManyWithoutPlaceInput
     users?: PlaceOnUserUncheckedCreateNestedManyWithoutPlaceInput
   }
@@ -19361,6 +19443,8 @@ export namespace Prisma {
     popularity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursTravel?: NullableStringFieldUpdateOperationsInput | string | null
     address?: AddressUpdateOneRequiredWithoutPlacesNestedInput
     placeDetail?: PlaceDetailUpdateManyWithoutPlaceNestedInput
     users?: PlaceOnUserUpdateManyWithoutPlaceNestedInput
@@ -19372,6 +19456,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     addressId?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursTravel?: NullableStringFieldUpdateOperationsInput | string | null
     placeDetail?: PlaceDetailUncheckedUpdateManyWithoutPlaceNestedInput
     users?: PlaceOnUserUncheckedUpdateManyWithoutPlaceNestedInput
   }
@@ -19652,6 +19738,8 @@ export namespace Prisma {
     popularity?: number
     createdAt?: Date | string
     image?: string | null
+    price?: string | null
+    hoursTravel?: string | null
   }
 
   export type PlaceUpdateWithoutAddressInput = {
@@ -19659,6 +19747,8 @@ export namespace Prisma {
     popularity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursTravel?: NullableStringFieldUpdateOperationsInput | string | null
     placeDetail?: PlaceDetailUpdateManyWithoutPlaceNestedInput
     bookings?: BookingUpdateManyWithoutPlaceNestedInput
     users?: PlaceOnUserUpdateManyWithoutPlaceNestedInput
@@ -19669,6 +19759,8 @@ export namespace Prisma {
     popularity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursTravel?: NullableStringFieldUpdateOperationsInput | string | null
     placeDetail?: PlaceDetailUncheckedUpdateManyWithoutPlaceNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutPlaceNestedInput
     users?: PlaceOnUserUncheckedUpdateManyWithoutPlaceNestedInput
@@ -19679,6 +19771,8 @@ export namespace Prisma {
     popularity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursTravel?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AddressCreateManyCityInput = {
@@ -19761,6 +19855,10 @@ export namespace Prisma {
      */
     export type PlaceOnUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlaceOnUserDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use PlaceDetailDefaultArgs instead
+     */
+    export type PlaceDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlaceDetailDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use SessionDefaultArgs instead
      */
     export type SessionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SessionDefaultArgs<ExtArgs>
@@ -19788,10 +19886,6 @@ export namespace Prisma {
      * @deprecated Use CityDefaultArgs instead
      */
     export type CityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CityDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use PlaceDetailDefaultArgs instead
-     */
-    export type PlaceDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlaceDetailDefaultArgs<ExtArgs>
     /**
      * @deprecated Use LanguageDefaultArgs instead
      */

@@ -8,8 +8,10 @@ const ERROR_MESSAGES = {
   GET_PLACE: 'Failed to retrieve the places. Please try again.',
   GET_PRESELECTION_NAMES: 'The preselection names were not retrieved successfully',
   NOT_ALLOWED: "Access's user is not allowed. ",
+  GET_WEATHER: 'Failed to retrieve the weather. Please try again.',
 };
 
+//!improve duplicate with success
 const ERROR_MESSAGES_KEYS = {
   LOGIN: 'login',
   REGISTER_USER: 'registerUser',
@@ -20,6 +22,7 @@ const ERROR_MESSAGES_KEYS = {
   GET_PLACE: 'getPlace',
   GET_PRESELECTION_NAMES: 'getPreselectionNames',
   NOT_ALLOWED: 'notAllowed',
+  GET_WEATHER: 'getWeather',
 };
 
 const STATUS_SERVER = {

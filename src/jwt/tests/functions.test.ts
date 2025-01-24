@@ -1,8 +1,5 @@
-
-
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { mobileAuthorization, returnToken, verifyToken } from '../services/function';
-
+import { returnToken, verifyToken } from '../services/function';
 
 jest.mock('jsonwebtoken'); // Mock jwt functions
 
@@ -35,7 +32,7 @@ describe('verifyToken', () => {
       throw new Error('Invalid token');
     });
 
-    expect(() => verifyToken(mockToken)).toThrow('Error verifyToken:\', Invalid token');
+    expect(() => verifyToken(mockToken)).toThrow("Error verifyToken:', Invalid token");
   });
 });
 
@@ -62,7 +59,7 @@ describe('returnToken', () => {
 
     expect(jwt.sign).toHaveBeenCalledWith(
       { exp: expect.any(Number), payload: { ...mockData, time: expect.any(String) } },
-      mockJwtSecretKey
+      mockJwtSecretKey,
     );
     expect(token).toEqual(mockToken);
   });
@@ -74,21 +71,12 @@ describe('returnToken', () => {
   });
   it('should throw an error if jwt.sign fails', () => {
     const mockError = new Error('JWT signing failed');
-    
+
     // Mock jwt.sign to throw the error
     (jwt.sign as jest.Mock).mockImplementation(() => {
       throw mockError;
     });
-  
 
     expect(() => returnToken(mockData)).toThrow(`Error return token:', ${mockError.message}`);
-    
-
   });
 });
-
-
-
-
-
-  

@@ -7,6 +7,7 @@ const SUCCESS_MESSAGES = {
   GET_PLACES: 'The places were retrieved successfully.',
   GET_PLACE: 'The place was retrieved successfully.',
   GET_PRESELECTION_NAMES: 'The preselection names were retrieved successfully',
+  GET_WEATHER: 'The weather was retrieved successfully.',
 };
 
 const SUCCESS_MESSAGES_KEYS = {
@@ -18,6 +19,7 @@ const SUCCESS_MESSAGES_KEYS = {
   GET_PLACES: 'getPlaces',
   GET_PLACE: 'getPlace',
   GET_PRESELECTION_NAMES: 'getPreselectionNames',
+  GET_WEATHER: 'getWeather',
 };
 
 const SUCCESS_STATUS = {

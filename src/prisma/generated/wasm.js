@@ -140,12 +140,23 @@ exports.Prisma.PlaceScalarFieldEnum = {
   popularity: 'popularity',
   createdAt: 'createdAt',
   addressId: 'addressId',
-  image: 'image'
+  image: 'image',
+  price: 'price',
+  hoursTravel: 'hoursTravel'
 };
 
 exports.Prisma.PlaceOnUserScalarFieldEnum = {
   userId: 'userId',
   placeId: 'placeId'
+};
+
+exports.Prisma.PlaceDetailScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  placeId: 'placeId',
+  languageId: 'languageId'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -214,15 +225,6 @@ exports.Prisma.CityScalarFieldEnum = {
   countryId: 'countryId'
 };
 
-exports.Prisma.PlaceDetailScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  createdAt: 'createdAt',
-  placeId: 'placeId',
-  languageId: 'languageId'
-};
-
 exports.Prisma.LanguageScalarFieldEnum = {
   id: 'id',
   type: 'type',
@@ -259,6 +261,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   Place: 'Place',
   PlaceOnUser: 'PlaceOnUser',
+  PlaceDetail: 'PlaceDetail',
   Session: 'Session',
   Account: 'Account',
   UserAuthentification: 'UserAuthentification',
@@ -266,7 +269,6 @@ exports.Prisma.ModelName = {
   Country: 'Country',
   Address: 'Address',
   City: 'City',
-  PlaceDetail: 'PlaceDetail',
   Language: 'Language',
   Booking: 'Booking'
 };

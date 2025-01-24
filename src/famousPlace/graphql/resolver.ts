@@ -40,6 +40,7 @@ export const resolversPlace = {
     places: async (_parent: undefined, args: PlacesBody) => {
       try {
         const result = await handleGetPlaces(args);
+
         return {
           status: SUCCESS_STATUS.OK,
           isError: false,

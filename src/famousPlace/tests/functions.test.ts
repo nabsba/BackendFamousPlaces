@@ -1,12 +1,7 @@
+import prismaClientDB from '../../lib/prismadb'; // Import your Prisma client instance
+import { handleAddPlaceToPreference, returnTotalRow } from '../models/functions';
 
-import prismaClientDB from "../../lib/prismadb"; // Import your Prisma client instance
-import { handleAddPlaceToPreference, handleGetPlaces, returnQueryFilterPlace, returnTotalRow } from "../models/functions";
-import { ROW_PER_PAGE } from "../services/constant";
-
-
-
-
-jest.mock("../../lib/prismadb", () => ({
+jest.mock('../../lib/prismadb', () => ({
   placeOnUser: {
     findUnique: jest.fn(),
     delete: jest.fn(),
@@ -15,20 +10,19 @@ jest.mock("../../lib/prismadb", () => ({
   },
   place: {
     count: jest.fn(),
-    findMany: jest.fn()
+    findMany: jest.fn(),
   },
-  
 }));
 
-describe("handleAddPlaceToPreference", () => {
-  const mockUserId = "user123";
-  const mockPlaceId = "place123";
+describe('handleAddPlaceToPreference', () => {
+  const mockUserId = 'user123';
+  const mockPlaceId = 'place123';
 
   beforeEach(() => {
     jest.clearAllMocks(); // Clear mocks before each test
   });
 
-  it("should delete the place when it already exists for the user", async () => {
+  it('should delete the place when it already exists for the user', async () => {
     // Mock `findUnique` to simulate an existing place
     (prismaClientDB.placeOnUser.findUnique as jest.Mock).mockResolvedValueOnce({
       userId: mockUserId,
@@ -65,7 +59,7 @@ describe("handleAddPlaceToPreference", () => {
     expect(result).toEqual({ userId: mockUserId, placeId: mockPlaceId });
   });
 
-  it("should create the place when it does not exist for the user", async () => {
+  it('should create the place when it does not exist for the user', async () => {
     // Mock `findUnique` to simulate a non-existing place
     (prismaClientDB.placeOnUser.findUnique as jest.Mock).mockResolvedValueOnce(null);
 
@@ -97,8 +91,8 @@ describe("handleAddPlaceToPreference", () => {
     expect(result).toEqual({ userId: mockUserId, placeId: mockPlaceId });
   });
 
-  it("should log and rethrow an error when an exception occurs", async () => {
-    const mockError = new Error("Database error");
+  it('should log and rethrow an error when an exception occurs', async () => {
+    const mockError = new Error('Database error');
     (prismaClientDB.placeOnUser.findUnique as jest.Mock).mockRejectedValueOnce(mockError);
 
     await expect(handleAddPlaceToPreference(mockPlaceId, mockUserId)).rejects.toThrow(mockError);
@@ -107,71 +101,66 @@ describe("handleAddPlaceToPreference", () => {
   });
 });
 
-
-
-describe("returnTotalRow", () => {
-    beforeEach(() => {
-      jest.clearAllMocks(); // Clear mocks before each test
-    });
-  
-    it("should return the total count of places when type is '0'", async () => {
-      // Mock the `place.count` method
-      (prismaClientDB.place.count as jest.Mock).mockResolvedValueOnce(10);
-  
-      const result = await returnTotalRow({ type: '0', userId: '', language: '', page: '1' });
-  
-      expect(prismaClientDB.place.count).toHaveBeenCalledTimes(1);
-      expect(result).toBe(10);
-    });
-  
-    it("should return 5 when type is '2'", async () => {
-      const result = await returnTotalRow({ type: '2', userId: '', language: '',  page: '1' });
-  
-      expect(result).toBe(5);
-      expect(prismaClientDB.place.count).not.toHaveBeenCalled();
-    });
-  
-    it("should return the count of places for a specific user when type is '3'", async () => {
-      // Mock the `placeOnUser.count` method
-      (prismaClientDB.placeOnUser.count as jest.Mock).mockResolvedValueOnce(7);
-  
-      const result = await returnTotalRow({ type: '3', userId: 'user123', language: '',  page: '1' });
-      expect(prismaClientDB.placeOnUser.count).toHaveBeenCalledWith({
-        where: {
-          userId: 'user123',
-        },
-      });
-      expect(result).toBe(7);
-    });
-  
-    it("should return the count of places matching the default case criteria", async () => {
-      // Mock the `place.count` method
-      (prismaClientDB.place.count as jest.Mock).mockResolvedValueOnce(15);
-  
-      const result = await returnTotalRow({
-        type: 'default',
-        userId: 'user123',
-        language: '1',
-        page: '1'
-      });
-  
-      expect(prismaClientDB.place.count).toHaveBeenCalledWith({
-        where: {
-          placeDetail: {
-            some: {
-              languageId: 2, // language + 1
-            },
-          },
-          users: {
-            some: {
-              userId: 'user123',
-            },
-          },
-        },
-      });
-      expect(result).toBe(15);
-    });
+describe('returnTotalRow', () => {
+  beforeEach(() => {
+    jest.clearAllMocks(); // Clear mocks before each test
   });
 
+  it("should return the total count of places when type is '0'", async () => {
+    // Mock the `place.count` method
+    (prismaClientDB.place.count as jest.Mock).mockResolvedValueOnce(10);
 
-  
+    const result = await returnTotalRow({ type: '0', userId: '', language: '', page: '1' });
+
+    expect(prismaClientDB.place.count).toHaveBeenCalledTimes(1);
+    expect(result).toBe(10);
+  });
+
+  it("should return 5 when type is '2'", async () => {
+    const result = await returnTotalRow({ type: '2', userId: '', language: '', page: '1' });
+
+    expect(result).toBe(5);
+    expect(prismaClientDB.place.count).not.toHaveBeenCalled();
+  });
+
+  it("should return the count of places for a specific user when type is '3'", async () => {
+    // Mock the `placeOnUser.count` method
+    (prismaClientDB.placeOnUser.count as jest.Mock).mockResolvedValueOnce(7);
+
+    const result = await returnTotalRow({ type: '3', userId: 'user123', language: '', page: '1' });
+    expect(prismaClientDB.placeOnUser.count).toHaveBeenCalledWith({
+      where: {
+        userId: 'user123',
+      },
+    });
+    expect(result).toBe(7);
+  });
+
+  it('should return the count of places matching the default case criteria', async () => {
+    // Mock the `place.count` method
+    (prismaClientDB.place.count as jest.Mock).mockResolvedValueOnce(15);
+
+    const result = await returnTotalRow({
+      type: 'default',
+      userId: 'user123',
+      language: '1',
+      page: '1',
+    });
+
+    expect(prismaClientDB.place.count).toHaveBeenCalledWith({
+      where: {
+        placeDetail: {
+          some: {
+            languageId: 2, // language + 1
+          },
+        },
+        users: {
+          some: {
+            userId: 'user123',
+          },
+        },
+      },
+    });
+    expect(result).toBe(15);
+  });
+});

@@ -1,7 +1,6 @@
 import { gql } from 'apollo-server';
 
 const typeDefsWeather = gql`
-
   type weatherResponse {
     status: Int! # Status code, e.g., 200 for success, 400 for failure
     isError: Boolean! # Indicates if an error occurred
@@ -20,7 +19,7 @@ const typeDefsWeather = gql`
 
   type Query {
     weather(city: String!): weatherResponse
-    }
-  `
-  
-  export default typeDefsWeather;
+  }
+`;
+
+export default typeDefsWeather;

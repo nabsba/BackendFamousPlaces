@@ -47,7 +47,7 @@ const typeDefsPlaces = gql`
     name: String!
     id: String!
   }
-  
+
   type preselectionNameResponse {
     status: Int! # Status code, e.g., 200 for success, 400 for failure
     isError: Boolean! # Indicates if an error occurred

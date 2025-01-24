@@ -19,7 +19,7 @@ const SUCCESS_MESSAGES_KEYS = {
   GET_PLACES: 'getPlaces',
   GET_PLACE: 'getPlace',
   GET_PRESELECTION_NAMES: 'getPreselectionNames',
-  GET_WEATHER: 'getWeather'
+  GET_WEATHER: 'getWeather',
 };
 
 const SUCCESS_STATUS = {

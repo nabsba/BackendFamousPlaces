@@ -22,7 +22,7 @@ const ERROR_MESSAGES_KEYS = {
   GET_PLACE: 'getPlace',
   GET_PRESELECTION_NAMES: 'getPreselectionNames',
   NOT_ALLOWED: 'notAllowed',
-  GET_WEATHER: 'getWeather'
+  GET_WEATHER: 'getWeather',
 };
 
 const STATUS_SERVER = {

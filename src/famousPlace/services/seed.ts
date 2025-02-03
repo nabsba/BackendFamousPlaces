@@ -17,6 +17,8 @@ async function main() {
         data: {
           popularity: 10,
           image: 'hotel_de_paris_monte-Carlo',
+          price: "50",
+          hoursTravel: '8',
           address: {
             create: {
               number: 1,
@@ -54,6 +56,8 @@ async function main() {
         data: {
           popularity: 10,
           image: 'colosseum',
+          price: "30",
+          hoursTravel: '4',
           address: {
             create: {
               number: 1,
@@ -92,6 +96,8 @@ async function main() {
         data: {
           popularity: 9,
           image: 'piazza_del_duomo',
+          price: "50",
+          hoursTravel: '8',
           address: {
             create: {
               number: 1,

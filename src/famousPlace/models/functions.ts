@@ -69,8 +69,8 @@ const returnTotalRow = (args: PlacesBody) => {
   }
 };
 const returnQueryFilterPlace = (args: PlacesBody, fromRow: number) => {
-  
   switch (args.type) {
+
     // all poopular places
     case MENUS[0]:
       return prismaClientDB.place.findMany({
@@ -146,44 +146,8 @@ const returnQueryFilterPlace = (args: PlacesBody, fromRow: number) => {
           },
         },
       });
-    // case MENUS[3]:
-    //   // last 5
-    //   return prismaClientDB.place.findUnique({
-    //     where: {
-    //       id: '33',
-    //     },
-    //     include: {
-    //       address: {
-    //         include: {
-    //           city: {
-    //             include: {
-    //               country: true, // Include nested relations
-    //             },
-    //           },
-    //         },
-    //       },
-    //       placeDetail: {
-    //         where: {
-    //           languageId: args.language ? parseInt(args.language) + 1 : 1, // Language filter
-    //         },
-    //       },
-    //       _count: {
-    //         select: {
-    //           users: true, // Include the count of related users
-    //         },
-    //       },
-    //       users: {
-    //         where: {
-    //           userId: args.userId, // Optional: Filter users specific to the given userId
-    //         },
-    //         select: {
-    //           userId: true, // Fetch only the userId for users
-    //         },
-    //       },
-    //     },
-    //   });
-
     default:
+
       return prismaClientDB.place.findMany({
         orderBy: {
           createdAt: 'desc', // Sort by createdAt field in descending order (most recent first)
@@ -235,7 +199,7 @@ const handleGetPlaces = async (args: PlacesBody) => {
         finalResult.push({
           ...result[i],
           placeDetail: result[i].placeDetail[0],
-           images: await listFilesInFolder(`${result[i].address.city.name.toLocaleLowerCase()}/${result[i].image}`),
+          images: await listFilesInFolder(`${result[i].address.city.name.toLocaleLowerCase()}/${result[i].image}`),
           isFavoritePlace: isPlaceOnUser,
         });
       }

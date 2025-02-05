@@ -70,7 +70,6 @@ const returnTotalRow = (args: PlacesBody) => {
 };
 const returnQueryFilterPlace = (args: PlacesBody, fromRow: number) => {
   switch (args.type) {
-
     // all poopular places
     case MENUS[0]:
       return prismaClientDB.place.findMany({
@@ -147,7 +146,6 @@ const returnQueryFilterPlace = (args: PlacesBody, fromRow: number) => {
         },
       });
     default:
-
       return prismaClientDB.place.findMany({
         orderBy: {
           createdAt: 'desc', // Sort by createdAt field in descending order (most recent first)
@@ -204,12 +202,14 @@ const handleGetPlaces = async (args: PlacesBody) => {
         });
       }
     }
+
     const data = {
       places: finalResult,
       page: args.page,
       rowPerPage: ROW_PER_PAGE,
       totalRows: totalRows,
     };
+
     return data;
   } catch (error) {
     logMessage(`${logErrorAsyncMessage('src/famousPlace/services/function/handleGetPlaces', `${ERROR_MESSAGES.GET_PLACES}:`)},

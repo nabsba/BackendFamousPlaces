@@ -43,3 +43,7 @@ dist/
         modified:   src/prisma/generated/wasm.js
 
 /src/firebase/services/serviceAccountKey.json
+
+
+*.js
+prisma/generated/*

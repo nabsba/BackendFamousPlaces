@@ -217,7 +217,7 @@ const handleGetPlaces = async (args: PlacesBody) => {
     throw error;
   }
 };
-const handleGetPlace = async (args: PlaceBody) => {
+const handleGetPlace = async (args: PlaceBody) => { 
   try {
     const result = await prismaClientDB.place.findFirst({
       where: {
@@ -254,9 +254,8 @@ const handleGetPlace = async (args: PlaceBody) => {
     const resultFinal = {
       ...result,
       isFavoritePlace: isPlaceOnUser,
-      images: [],
       placeDetail: result?.placeDetail[0],
-      // images:  await listFilesInFolder(`${result[i].address.city.name.toLocaleLowerCase()}/${result[i].image}`),
+      images:   result ? await listFilesInFolder(`${result.address.city.name.toLocaleLowerCase()}/${result.image}`): [],
     };
 
     const data = {
@@ -275,7 +274,7 @@ const handleGetPlace = async (args: PlaceBody) => {
 };
 const returnQueryPreselectionName = (args: PreSelectionBody) => {
   switch (args.type) {
-    case '0':
+    case MENUS[0]:
       return prismaClientDB.placeDetail.findMany({
         where: {
           name: {
@@ -293,7 +292,7 @@ const returnQueryPreselectionName = (args: PreSelectionBody) => {
         // },
         take: 10, // Limit results to avoid overloading
       });
-    case '2':
+    case  MENUS[2]:
       return prismaClientDB.placeDetail.findMany({
         where: {
           languageId: parseInt(args.language) + 1, // Filter by languageId

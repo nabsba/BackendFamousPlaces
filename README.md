@@ -53,7 +53,34 @@
 
 ### Backend (Node.js)
 
-1. Clone the repository:
+1. **Needs**:
+
+- **Firebase**: storage for retrieving images + instalation
+- **Postgres**: local database "famous_place"
+
+2. **Clone the repository**:
+
    ```bash
    git clone https://github.com/your-repository/famous-place-backend.git
    cd famous-place-backend
+
+3. **Init**:
+
+- **.env**: create ".env" at the the root directory with the following variable
+```PORT=4000
+DATABASE_DEV="postgres://YourName:PASSWORD.@localhost:5432/famous_place"
+JWT_SECRET_KEY=********************************=  // generate yours
+NEXT_PUBLIC_DEVELOPMENT=true
+```
+- **Prisma**: 
+
+```
+yarn prismaInit
+```
+
+- **Run app**: 
+```
+yarn devts
+```
+ 
+

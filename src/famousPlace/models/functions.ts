@@ -241,8 +241,8 @@ const handleGetPlaces = async (args: PlacesBody) => {
         finalResult.push({
           ...result[i],
           placeDetail: result[i].placeDetail[0],
-          // images: await listFilesInFolder(`${result[i].address.city.name.toLocaleLowerCase()}/${result[i].image}`),
-          images:[],
+         images: await listFilesInFolder(`${result[i].address.city.name.toLocaleLowerCase()}/${result[i].image}`),
+          // images:[],
           isFavoritePlace: isPlaceOnUser,
         });
       }

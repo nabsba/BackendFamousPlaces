@@ -145,6 +145,50 @@ const returnQueryFilterPlace = (args: PlacesBody, fromRow: number) => {
           },
         },
       });
+    case MENUS[4]:
+      return prismaClientDB.place.findMany({
+        where: {
+          users: {
+            some: {
+              userId: args.userId, // Ensure the place is in the user's favourites
+            },
+          },
+        },
+        orderBy: {
+          createdAt: 'desc', // Sort by `createdAt` in descending order (most recent first)
+        },
+        skip: fromRow, // Skip rows for pagination
+        take: ROW_PER_PAGE,
+        include: {
+          address: {
+            include: {
+              city: {
+                include: {
+                  country: true,
+                },
+              },
+            },
+          },
+          placeDetail: {
+            where: {
+              languageId: args.language ? parseInt(args.language) + 1 : 1, // Default to English if no language specified
+            },
+          },
+          _count: {
+            select: {
+              users: true, // Count the number of users who marked this place as a favourite
+            },
+          },
+          users: {
+            where: {
+              userId: args.userId, // Check if the user has favourited this place
+            },
+            select: {
+              userId: true, // Only fetch `userId` to confirm the relationship
+            },
+          },
+        },
+      });
     default:
       return prismaClientDB.place.findMany({
         orderBy: {
@@ -197,7 +241,8 @@ const handleGetPlaces = async (args: PlacesBody) => {
         finalResult.push({
           ...result[i],
           placeDetail: result[i].placeDetail[0],
-          images: await listFilesInFolder(`${result[i].address.city.name.toLocaleLowerCase()}/${result[i].image}`),
+          // images: await listFilesInFolder(`${result[i].address.city.name.toLocaleLowerCase()}/${result[i].image}`),
+          images:[],
           isFavoritePlace: isPlaceOnUser,
         });
       }
@@ -309,6 +354,23 @@ const returnQueryPreselectionName = (args: PreSelectionBody) => {
           name: true,
         },
       });
+      case  MENUS[4]:
+        return prismaClientDB.placeDetail.findMany({
+          where: {
+            languageId: parseInt(args.language) + 1, // Filter by languageId
+            place: {
+              users: {
+                some: {
+                  userId: args.userId, // Ensure the Place is linked to the user
+                },
+              },
+            },
+          },
+          select: {
+            id: true,
+            name: true,
+          },
+        });
     default:
       return prismaClientDB.placeDetail.findMany({
         where: {

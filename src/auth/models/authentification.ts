@@ -3,6 +3,7 @@ import { handleRefreshToken } from '../../jwt';
 import prismaClientDB from '../../lib/prismadb';
 import { LoginArgs, registerUser } from '../types/types';
 import {isUserInTheDB, createUserInTheDB } from '../services/authentifications';
+import { Prisma } from '../../prisma/generated';
 
 const handleLogin = async (data: LoginArgs) => {
   try {
@@ -23,7 +24,7 @@ const handleLogin = async (data: LoginArgs) => {
 
 const handleRegisterUser = async (userInfo: registerUser) => {
   try {
-    return await prismaClientDB.$transaction(async (tx) => {
+    return await prismaClientDB.$transaction(async (tx: Prisma.TransactionClient) => {
       const account = await isUserInTheDB(tx, userInfo);
       if (account) {
         return await handleRefreshToken(userInfo.data);

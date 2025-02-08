@@ -1,9 +1,9 @@
 import { ERROR_MESSAGES, logErrorAsyncMessage, logMessage } from '../../common';
-import { returnToken } from '../../jwt';
 import { handleRefreshToken } from '../../jwt';
-
 import prismaClientDB from '../../lib/prismadb';
 import { LoginArgs, registerUser } from '../types/types';
+import {isUserInTheDB, createUserInTheDB } from '../services/authentifications';
+import { Prisma } from '../../prisma/generated';
 
 const handleLogin = async (data: LoginArgs) => {
   try {
@@ -20,47 +20,16 @@ const handleLogin = async (data: LoginArgs) => {
   }
 };
 
-const handleRegisterUser = async (data: registerUser) => {
+
+
+const handleRegisterUser = async (userInfo: registerUser) => {
   try {
-    return await prismaClientDB.$transaction(async (tx) => {
-      const account = await tx.account.findUnique({
-        where: {
-          provider_providerAccountId: {
-            provider: data.data.providerAccountId,
-            providerAccountId: data.data.providerAccountId,
-            userId: data.data.id,
-          },
-        },
-      });
-
+    return await prismaClientDB.$transaction(async (tx: Prisma.TransactionClient) => {
+      const account = await isUserInTheDB(tx, userInfo);
       if (account) {
-        return await handleRefreshToken(data.data);
+        return await handleRefreshToken(userInfo.data);
       }
-
-      const clientRole = await tx.role.findUnique({
-        where: { roleName: 'client' },
-      });
-      if (!clientRole) {
-        throw new Error('Default role "client" not found');
-      }
-      const token = returnToken(data.data);
-      await tx.user.create({
-        data: {
-          id: data.data.id,
-          email: data.data.email,
-          name: data.data.userName, // Optional, set as per the data
-          roleId: clientRole.id, // Make sure to reference a valid role ID
-          accounts: {
-            create: {
-              type: data.data.type,
-              provider: data.data.providerAccountId,
-              providerAccountId: data.data.providerAccountId,
-              refresh_token: token, // Optional
-            },
-          },
-        },
-      });
-      return token;
+      return await createUserInTheDB(tx, userInfo);
     });
   } catch (error) {
     logMessage(`${logErrorAsyncMessage('auth/models/authentification', `${ERROR_MESSAGES.REGISTER_USER}:`)},
@@ -68,6 +37,9 @@ const handleRegisterUser = async (data: registerUser) => {
     throw new Error(ERROR_MESSAGES.REGISTER_USER);
   }
 };
+
+
+
 
 const handleRegisterUserWithCookie = async (data: registerUser) => {
   try {

@@ -5,8 +5,8 @@ const typeDefsPlaces = gql`
   type Place {
     id: String # ID field of type String (from TypeScript definition)
     popularity: Int # Popularity field of type Int
-    price: Int # price field of type Int
-    hoursTravel: String!
+    price: String # price field of type string
+    hoursTravel: String
     address: Address # Address field related to Address type
     placeDetail: PlaceDetail # Place detail related to the Place
     images: [String!]!
@@ -70,17 +70,20 @@ const typeDefsPlaces = gql`
     street: String
     postcode: String
     city: City
+    id: String
   }
 
   # GraphQL type definition for City
   type City {
     name: String
     country: Country
+    id: Int
   }
 
   # GraphQL type definition for Country
   type Country {
     name: String
+    id: Int
   }
 
   # GraphQL type definition for PlaceDetail
@@ -88,6 +91,7 @@ const typeDefsPlaces = gql`
     name: String
     description: String
     id: String
+    languageId: Int
   }
 
   # Queries for fetching places

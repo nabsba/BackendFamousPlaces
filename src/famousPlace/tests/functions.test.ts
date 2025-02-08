@@ -1,5 +1,6 @@
 import prismaClientDB from '../../lib/prismadb'; // Import your Prisma client instance
 import { handleAddPlaceToPreference, returnTotalRow } from '../models/functions';
+import { MENUS } from '../services/constant';
 
 jest.mock('../../lib/prismadb', () => ({
   placeOnUser: {
@@ -117,7 +118,7 @@ describe('returnTotalRow', () => {
   });
 
   it("should return 5 when type is '2'", async () => {
-    const result = await returnTotalRow({ type: '2', userId: '', language: '', page: '1' });
+    const result = await returnTotalRow({ type:  MENUS[1], userId: '', language: '', page: '1' });
 
     expect(result).toBe(5);
     expect(prismaClientDB.place.count).not.toHaveBeenCalled();
@@ -127,7 +128,7 @@ describe('returnTotalRow', () => {
     // Mock the `placeOnUser.count` method
     (prismaClientDB.placeOnUser.count as jest.Mock).mockResolvedValueOnce(7);
 
-    const result = await returnTotalRow({ type: '3', userId: 'user123', language: '', page: '1' });
+    const result = await returnTotalRow({ type: MENUS[3], userId: 'user123', language: '', page: '1' });
     expect(prismaClientDB.placeOnUser.count).toHaveBeenCalledWith({
       where: {
         userId: 'user123',
